@@ -4,7 +4,7 @@ This repository contains a toolkit for building custom camera capture tools for 
 configuration file to compose capture and processing pipelines. I built it because I got tired of
 writing very similar capture tools for slightly different situations.
 
-It uses Python's 'importlib' to create generators as defined in a configuration with and chain
+It uses Python's 'importlib' to create generators as defined in a configuration and chain
 them together in pipelines.
 
 Now, while it does work and works well, it's not entirely robust. It is possible to define configurations
