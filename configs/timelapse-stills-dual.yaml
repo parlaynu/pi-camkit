@@ -6,7 +6,6 @@ camera_rgb:
   vflip: false
   hflip: false
   preview: false
-  # min_frameduration: {{ 250 * (timelapse_seconds | default(60) | int) }}
 
 camera_noir:
   __target__: picamkit.camera.Camera
@@ -15,7 +14,6 @@ camera_noir:
   vflip: false
   hflip: false
   preview: false
-  # min_frameduration: {{ 250 * (timelapse_seconds | default(60) | int) }}
 
 
 # configure the cameras
