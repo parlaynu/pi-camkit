@@ -3,10 +3,10 @@ import cv2
 
 def resize(pipe, *, width, height, image_key='main.image', preserve_aspect=True):
     print("Building picamkit.ops.imaging.resize")
-    print(f"- image key: {image_key}")
+    print(f"- image_key: {image_key}")
     print(f"- width: {width}")
     print(f"- height: {height}")
-    print(f"- preserve aspect: {preserve_aspect}")
+    print(f"- preserve_aspect: {preserve_aspect}")
 
     image_keys = image_key.split('.')
 
@@ -45,7 +45,7 @@ def resize(pipe, *, width, height, image_key='main.image', preserve_aspect=True)
 
 def scale(pipe, *, factor, image_key='main.image'):
     print("Building picamkit.ops.imaging.scale")
-    print(f"- image key: {image_key}")
+    print(f"- image_key: {image_key}")
     print(f"- factor: {factor}")
 
     image_keys = image_key.split('.')

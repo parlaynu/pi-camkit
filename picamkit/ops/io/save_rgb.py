@@ -9,7 +9,7 @@ image_formats = {
 
 def save_rgb(pipe, outdir, *, file_format='png', image_key='main.image', format_key='main.format', prefix='img'):
     
-    print("Building picamkit.ops.io.save_raw")
+    print("Building picamkit.ops.io.save_rgb")
     print(f"- outdir: {outdir}")
     print(f"- file_format: {file_format}")
     print(f"- image_key: {image_key}")

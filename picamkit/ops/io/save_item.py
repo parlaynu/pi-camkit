@@ -7,7 +7,7 @@ def save_item(pipe, outdir, *, prefix='img', mdata_key='metadata'):
     print("Building picamkit.ops.io.save_item")
     print(f"- outdir: {outdir}")
     print(f"- prefix: {prefix}")
-    print(f"- mdata key: {mdata_key}")
+    print(f"- mdata_key: {mdata_key}")
     
     os.makedirs(outdir, exist_ok=True)
     

@@ -5,8 +5,10 @@ from itertools import count
 
 def flirc_exit(fps=0, max_frames=0):
     print(f"Building picamkit.ops.control.flirc_exit")
-    print(f"- fps: {fps}")
-    print(f"- max_frames: {max_frames}")
+    if fps > 0:
+        print(f"- fps: {fps}")
+    if max_frames > 0:
+        print(f"- max_frames: {max_frames}")
     
     # import inside function to avoid errors if not using this module
     import evdev
