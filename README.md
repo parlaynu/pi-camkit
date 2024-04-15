@@ -86,7 +86,7 @@ There are a few key phases:
 * processing the python dict and creating the processing pipeline
 * running the pipeline
 
-If you're familiar with [jinja2](https://palletsprojects.com/p/jinja/), you will see familiar jinja2 
+If you're familiar with [jinja2](https://palletsprojects.com/p/jinja/), you will recognise jinja2 
 template expressions in the example config files. The template variables can either use defaults or can
 be passed on the command line to `ck-run` as overrides. For example, the config file [simple-capture.yaml](configs/simple-capture.yaml)
 has a template variable 'max_frames', which defaults to 10, which controls how many frames to capture. To override this and
@@ -98,7 +98,7 @@ You can pass any template variable into the template expansion using this mechan
 actually have any useful command line flags (other than a help flag), but relies soley on this mechanism to
 customise a capture pipeline defined in a template configuration file.
 
-There are three special keys that the configuration knows about - `__target__`, `__instance__` and any top level
+There are three special configuration keys that the system knows about - `__target__`, `__instance__` and any top level
 key that begins with `pipeline`.
 
 The `__target__` key is used to define an object to instantiate, or more generally, a function to call. This could
