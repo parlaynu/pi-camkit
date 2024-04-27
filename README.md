@@ -31,9 +31,15 @@ You can now run the example in the next section.
 ## Quick Example
 
 There are some example configurations in the `configs` directory. The simplest, named 
-[simple-capture.yaml](configs/simple-capture.yaml), has three main sections that create the camera
-object, configures the camera, abnd builds the pipeline for capturing and saving images. It saves
-the metadata from the camera for each image and the RGB image in PNG format.
+[simple-capture.yaml](configs/simple-capture.yaml), has three main sections:
+
+| Section       | Description                         |
+| ------------- | ----------------------------------- |
+| camera        | define the camera and basic options |
+| configure_cam | settings for exposure, focus, etc.  |
+| pipeline      | the capture pipeline                |
+
+It saves the metadata from the camera for each image and the RGB image in PNG format.
 
 Running the capture session looks like this:
 
