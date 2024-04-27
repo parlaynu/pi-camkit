@@ -4,8 +4,11 @@ This repository contains a toolkit for building custom camera capture tools for 
 configuration file to compose capture and processing pipelines. I built it because I got tired of
 writing very similar capture tools for slightly different situations.
 
-It uses Python's 'importlib' to create generators as defined in a configuration and chain
-them together in pipelines.
+It uses Python's 'importlib' to build the objects as defined in the configuration file. All objects defined 
+at the top-level are stored as instances that can be referred to later in the configuration and passed
+to functions or constructors as a parameter. Any top-level item that starts with 'pipeline' is built differently
+with each oject in the pipeline expected to build a generator which is then passed into the following
+object as a parameter. More details are below.
 
 Now, while it does work and works well, it's not entirely robust. It is possible to define configurations
 that can't be built and the diagnostics can be a bit cryptic. Hopefully this will all improve as I
@@ -27,8 +30,12 @@ You can now run the example in the next section.
 
 ## Quick Example
 
-There are some example configurations in the `configs` directory. Running the capture session defined in the
-configuration called `simple-capture.yaml`, looks like this:
+There are some example configurations in the `configs` directory. The simplest, named 
+[simple-capture.yaml](configs/simple-capture.yaml), has three main sections that create the camera
+object, configures the camera, abnd builds the pipeline for capturing and saving images. It saves
+the metadata from the camera for each image and the RGB image in PNG format.
+
+Running the capture session looks like this:
 
     $ ck-run configs/simple-capture.yaml 
     Loading config
@@ -38,9 +45,9 @@ configuration called `simple-capture.yaml`, looks like this:
     Setting focus
     Waiting for 5 seconds
     Building picamkit.ops.control.simple
-      max_frames: 10
+    - max_frames: 10
     Building picamkit.ops.camera.capture
-    - arrays: ['main', 'raw']
+    - arrays: ['main']
     - immediate: True
     Building picamkit.ops.imaging.resize
     - image_key: main.image
@@ -57,20 +64,13 @@ configuration called `simple-capture.yaml`, looks like this:
     - image_key: main.image
     - format_key: main.format
     - prefix: img
-    Building picamkit.ops.io.save_raw8
-    - outdir: local/1713146422
-    - image_key: raw.image
-    - format_key: raw.format
-    - prefix: img
     Running
     Saving local/1713146422/img-0000.json
     Saving local/1713146422/img-0000-rgb.png
-    Saving local/1713146422/img-0000-raw8.png
     .
     .
     Saving local/1713146422/img-0009.json
     Saving local/1713146422/img-0009-rgb.png
-    Saving local/1713146422/img-0009-raw8.png
 
 
 ## Operation Overview

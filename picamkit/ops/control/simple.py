@@ -6,9 +6,9 @@ from itertools import count, islice
 def simple(fps=0, max_frames=0):
     print(f"Building picamkit.ops.control.simple")
     if fps > 0:
-        print(f"  fps: {fps}")
+        print(f"- fps: {fps}")
     if max_frames > 0:
-        print(f"  max_frames: {max_frames}")
+        print(f"- max_frames: {max_frames}")
     
     def gen():
         loop = count
