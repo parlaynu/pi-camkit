@@ -137,9 +137,9 @@ show more advanced capabilities:
 Chaining pipeline segments together is achieved using the `__instance__` keyword as described earlier.
 The other features are provided with some operators in the toolkit as shown in the table below:
 
-| Feature                | Operator                  |
-| ---------------------- | ------------------------- |
-| Splitting the Pipeline | picamkit.ops.utils.tee    |
-| Running in own Thread  | picamkit.ops.utils.worker |
-| Merging the Pipelines  | picamkit.ops.utils.merge  |
+| Feature                | Operator                                                  |
+| ---------------------- | --------------------------------------------------------- |
+| Splitting the Pipeline | [picamkit.ops.utils.tee](picamkit/ops/utils/tee.py)       |
+| Running in own Thread  | [picamkit.ops.utils.worker](picamkit/ops/utils/worker.py) |
+| Merging the Pipelines  | [picamkit.ops.utils.merge](picamkit/ops/utils/merge.py)   |
 
