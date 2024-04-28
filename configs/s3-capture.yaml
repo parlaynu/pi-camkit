@@ -1,0 +1,13 @@
+
+
+# the pipeline of generators
+pipeline:
+  - __target__: picamkit.ops.sources.s3_reader
+    profile_name: anisodon
+    bucket: anisodon
+    prefix: test/
+  - __target__: picamkit.ops.imaging.scale
+    factor: 0.5
+  - __target__: picamkit.ops.io.save_rgb
+    outdir: {{ output_dir }}
+
