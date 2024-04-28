@@ -3,6 +3,7 @@
 pipeline:
   - __target__: picamkit.ops.sources.fs_reader
     idir: {{ image_dir }}
+    recursive: True
   - __target__: picamkit.ops.imaging.scale
     factor: 0.5
   - __target__: picamkit.ops.io.save_rgb
