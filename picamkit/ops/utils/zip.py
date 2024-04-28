@@ -1,10 +1,6 @@
-import sys
-import threading
-import queue
 
-
-def merge(pipe1, name1, pipe2, name2, *, grouped=False):
-    print("Building picamkit.ops.utils.merge")
+def zip(pipe1, name1, pipe2, name2, *, grouped=False):
+    print("Building picamkit.ops.utils.zip")
     print(f"- name1: {name1}")
     print(f"- name2: {name2}")
     print(f"- grouped: {grouped}")

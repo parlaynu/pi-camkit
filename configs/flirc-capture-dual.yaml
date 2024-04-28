@@ -81,7 +81,7 @@ pipeline_rgb:
   - __target__: picamkit.ops.utils.worker
 
 pipeline:
-  - __target__: picamkit.ops.utils.merge
+  - __target__: picamkit.ops.utils.zip
     pipe1:
       __instance__: pipeline_noir
     name1: noir
