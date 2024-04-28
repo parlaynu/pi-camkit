@@ -1,3 +1,4 @@
+import os
 import time
 import numpy as np
 import cv2
@@ -15,7 +16,8 @@ def s3_reader(bucket, prefix, *,
     aws_access_key_id=None, 
     aws_secret_access_key=None, 
     aws_session_token=None,
-    endpoint_url=None
+    endpoint_url=None,
+    extensions={'.png', '.jpg', '.jpeg'}
 ):
 
     print(f"Building picamkit.ops.sources.s3_reader")
@@ -29,10 +31,10 @@ def s3_reader(bucket, prefix, *,
         aws_secret_access_key=aws_secret_access_key,
         aws_session_token=aws_session_token
     )
-    client = session.client('s3')
+    client = session.client('s3', endpoint_url=endpoint_url)
 
     def gen():
-        for idx, key in enumerate(_s3_scanner(client, bucket, prefix)):
+        for idx, key in enumerate(_s3_scanner(client, bucket, prefix, extensions)):
             response = client.get_object(
                 Bucket=bucket,
                 Key=key
@@ -61,7 +63,15 @@ def s3_reader(bucket, prefix, *,
     return gen()
 
 
-def _s3_scanner(client, bucket, prefix):
+def _s3_scanner(client, bucket, prefix, extensions):
+
+    # make sure the extensions are in the correct format
+    exts = list(extensions)
+    extensions = set()
+    for ext in exts:
+        if not ext.startswith('.'):
+            ext = '.'+ext
+        extensions.add(ext)
 
     def gen():
         resp = client.list_objects_v2(
@@ -73,8 +83,12 @@ def _s3_scanner(client, bucket, prefix):
             contents = resp.get('Contents', [])
             for c in contents:
                 key = c['Key']
-                if key.endswith('png'):
-                    yield key
+
+                _, ext = os.path.splitext(key)
+                if not ext in extensions:
+                    continue
+
+                yield key
 
             if resp['IsTruncated'] == False:
                 break
