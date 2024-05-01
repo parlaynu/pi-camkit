@@ -33,6 +33,10 @@ def _build_dict(key, config, instances):
             return instance
     
     # if the __target__ key exists, instantiate the object...
+    if enum := config.get('__enum__', None):
+        return _build_enum(enum, config)
+
+    # if the __target__ key exists, instantiate the object...
     if target := config.get('__target__', None):
         target = _build_target(target, config)
         if key:
@@ -51,6 +55,20 @@ def _build_list(config, instances):
             config[idx] = _build_dict(None, v, instances)
             
     return config
+
+
+def _build_enum(target, config):
+    del config['__enum__']
+
+    tgt_class_path = target.split('.')
+    tgt_enum_value = tgt_class_path[-1]
+    tgt_class_name = tgt_class_path[-2]
+    tgt_module_path = '.'.join(tgt_class_path[0:-2])
+    
+    tgt_module = importlib.import_module(tgt_module_path)
+    tgt_class = getattr(tgt_module, tgt_class_name)
+    
+    return tgt_class(value=tgt_enum_value.lower())
 
 
 def _build_target(target, config):

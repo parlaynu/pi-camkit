@@ -15,19 +15,24 @@ configure_cam:
     camera:
       __instance__: camera
     auto: true
+    metering_mode:
+      __enum__: picamkit.camera.MeteringModeEnum.SPOT
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera
+    mode:
+      __enum__: picamkit.camera.AwbModeEnum.AUTO
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera
-    mode: auto
+    mode:
+      __enum__: picamkit.camera.AfModeEnum.AUTO
   - __target__: picamkit.utils.save_camera_configs
     camera:
       __instance__: camera
     outdir: {{ output_dir }}
-  - __target__: picamkit.utils.wait_for
-    seconds: 5
+  # - __target__: picamkit.utils.wait_for
+  #   seconds: 5
 
 
 # the pipeline of generators

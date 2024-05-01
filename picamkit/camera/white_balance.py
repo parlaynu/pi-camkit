@@ -1,25 +1,38 @@
 import time
+from enum import StrEnum
+
 from libcamera import controls
+from picamera2 import Picamera2
 
 
-awb_modes = {
-    'auto': controls.AwbModeEnum.Auto,
-    'tungsten': controls.AwbModeEnum.Tungsten,
-    'fluorescent': controls.AwbModeEnum.Fluorescent,
-    'indoor': controls.AwbModeEnum.Indoor,
-    'daylight': controls.AwbModeEnum.Daylight,
-    'cloudy': controls.AwbModeEnum.Cloudy
+AwbModeEnum = StrEnum('AwbMode', ['AUTO', 'TUNGSTEN', 'FLUORESCENT', 'INDOOR', 'DAYLIGHT', 'CLOUDY'])
+
+_awb_modes = {
+    AwbModeEnum.AUTO: controls.AwbModeEnum.Auto,
+    AwbModeEnum.TUNGSTEN: controls.AwbModeEnum.Tungsten,
+    AwbModeEnum.FLUORESCENT: controls.AwbModeEnum.Fluorescent,
+    AwbModeEnum.INDOOR: controls.AwbModeEnum.Indoor,
+    AwbModeEnum.DAYLIGHT: controls.AwbModeEnum.Daylight,
+    AwbModeEnum.CLOUDY: controls.AwbModeEnum.Cloudy
 }
 
 
-def set_whitebalance(camera, *, auto=True, mode='auto', red_gain=0, blue_gain=0, wait=False):
-    
+def set_whitebalance(
+    camera: Picamera2, 
+    *, 
+    auto: bool = True, 
+    mode: AwbModeEnum = AwbModeEnum.AUTO, 
+    red_gain: float = 0, 
+    blue_gain: float = 0, 
+    wait: bool = False
+) -> bool:
+
     print("Setting white balance", flush=True)
     
     if auto:
         camera.set_controls({
             'AwbEnable': True,
-            'AwbMode': awb_modes[mode.lower()]
+            'AwbMode': _awb_modes[mode]
         })
     else:
         if red_gain == 0 or blue_gain == 0:

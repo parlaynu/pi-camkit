@@ -1,5 +1,4 @@
 import builtins
-builtin_zip = builtins.zip
 
 
 def zip(pipe1, name1, pipe2, name2, *, grouped=False):
@@ -9,7 +8,7 @@ def zip(pipe1, name1, pipe2, name2, *, grouped=False):
     print(f"- grouped: {grouped}")
     
     def gen():
-        for item1, item2 in builtin_zip(pipe1, pipe2):
+        for item1, item2 in builtins.zip(pipe1, pipe2):
             item1['name'] = name1
             item2['name'] = name2
         
