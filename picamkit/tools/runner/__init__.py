@@ -11,6 +11,7 @@ import picamkit.config as config
 
 def run():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-o', '--output', help='the root of the output directory', type=str, default='local')
     parser.add_argument('config', help='the configuration file to load', type=str)
     parser.add_argument('overrides', help='key=value configuration overrides', nargs='*', type=str)
     args = parser.parse_args()
@@ -19,7 +20,7 @@ def run():
     timestamp = str(int(time.time())) 
     config_vars = {
         'timestamp': timestamp,
-        'output_dir': os.path.join('local', timestamp)
+        'output_dir': os.path.join(args.output, timestamp)
     }
 
     # update config any overrides provided on the command line
