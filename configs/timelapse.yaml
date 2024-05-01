@@ -39,9 +39,9 @@ pipeline:
       __instance__: camera
     arrays:
       - main
-  # - __target__: picamkit.ops.io.save_item
+  # - __target__: picamkit.ops.sink.save_item
   #   outdir: {{ output_dir }}
-  - __target__: picamkit.ops.io.save_movie
+  - __target__: picamkit.ops.sink.save_movie
     movie_fps: 5
     images_per_movie: {{ images_per_movie | default(100) }}
     outdir: {{ output_dir }}

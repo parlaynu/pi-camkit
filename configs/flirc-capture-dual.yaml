@@ -15,6 +15,7 @@ camera_noir:
   hflip: false
   preview: false
 
+
 # configure the cameras
 configure_rgb:
   - __target__: picamkit.camera.set_exposure
@@ -51,8 +52,6 @@ configure_noir:
       __instance__: camera_noir
     outdir: {{ output_dir }}
     prefix: cam-noir
-  - __target__: picamkit.utils.wait_for
-    seconds: 5.0
 
 
 # the pipeline of generators
@@ -90,8 +89,8 @@ pipeline:
     name2: rgb
     grouped: true
   # - __target__: picamkit.ops.debug.dump
-  - __target__: picamkit.ops.io.save_item
+  - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
     prefix: img
-  - __target__: picamkit.ops.io.save_rgb
+  - __target__: picamkit.ops.sink.save_rgb
     outdir: {{ output_dir }}

@@ -10,7 +10,7 @@ pipeline:
     max_frames: {{ max_frames | default(10) }}
     fps: {{ frames_per_second | default(5) }}
   - __target__: picamkit.ops.debug.fake_capture
-  - __target__: picamkit.ops.io.save_item
+  - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
-  - __target__: picamkit.ops.io.save_rgb
+  - __target__: picamkit.ops.sink.save_rgb
     outdir: {{ output_dir }}

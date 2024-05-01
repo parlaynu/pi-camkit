@@ -40,10 +40,10 @@ pipeline:
     arrays:
       - main
       - raw
-  - __target__: picamkit.ops.io.save_item
+  - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
-  - __target__: picamkit.ops.io.save_rgb
+  - __target__: picamkit.ops.sink.save_rgb
     outdir: {{ output_dir }}
-  - __target__: picamkit.ops.io.save_raw
+  - __target__: picamkit.ops.sink.save_raw
     outdir: {{ output_dir }}
 

@@ -8,6 +8,6 @@ pipeline:
     prefix: {{ bucket_prefix }}
   - __target__: picamkit.ops.imaging.scale
     factor: 0.5
-  - __target__: picamkit.ops.io.save_rgb
+  - __target__: picamkit.ops.sink.save_rgb
     outdir: {{ output_dir }}
 
