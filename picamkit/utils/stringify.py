@@ -4,7 +4,7 @@ import types
 #   debugging/logging. convert non-builtin types just to their
 #   type names
 
-def stringify_list(items):
+def stringify_list(items: list) -> list:
     newitems = []
     for v in items:
         if type(v).__module__ != "builtins":
@@ -21,7 +21,7 @@ def stringify_list(items):
     return newitems
 
 
-def stringify_dict(items):
+def stringify_dict(items: dict) -> dict:
     newitems = {}
     for k, v in items.items():
         if type(v).__module__ != "builtins":

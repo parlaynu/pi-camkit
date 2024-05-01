@@ -3,9 +3,9 @@ from ruamel.yaml import YAML
 from jinja2 import Environment, BaseLoader, FileSystemLoader, select_autoescape
 
 
-def load(config_file, **config_vars):
+def load(config_file: str, config_vars: dict) -> dict:
     
-    # load and expand the jinja2 templates
+    # load  the jinja2 templates
     if config_file == "-":
         # load from stdin
         env = Environment(loader=BaseLoader())
@@ -23,16 +23,17 @@ def load(config_file, **config_vars):
         )
         template = env.get_template(config_name)
     
+    # render the template with the provided configuration variables
     config_data = template.render(**config_vars)
     
-    # load the yaml
+    # parse the expanded template as YAML
     yaml = YAML(typ='safe')
     config = yaml.load(config_data)
     
     return config
 
 
-def save(config, save_dir, name):
+def save(config: dict, save_dir: str, name: str) -> None:
     
     if not name.endswith('.yaml'):
         name += ".yaml"

@@ -2,7 +2,7 @@ import copy
 import importlib
 
 
-def build(config):
+def build(config: dict) -> dict:
     config = copy.deepcopy(config)
     instances = {}
     if isinstance(config, (list, tuple)):
@@ -11,7 +11,7 @@ def build(config):
         return _build_dict("root", config, instances)
 
 
-def _build_dict(key, config, instances):
+def _build_dict(key: str, config: dict, instances: dict):
     # build nested objects first
     for k, v in config.items():
         if k.startswith('pipeline'):
@@ -47,7 +47,7 @@ def _build_dict(key, config, instances):
     return config
 
     
-def _build_list(config, instances):    
+def _build_list(config: list, instances: dict):
     for idx, v in enumerate(config):
         if isinstance(v, (list, tuple)):
             config[idx] = _build_list(v, instances)
@@ -57,7 +57,7 @@ def _build_list(config, instances):
     return config
 
 
-def _build_enum(target, config):
+def _build_enum(target: str, config: dict):
     del config['__enum__']
 
     tgt_class_path = target.split('.')
@@ -71,7 +71,7 @@ def _build_enum(target, config):
     return tgt_class(value=tgt_enum_value.lower())
 
 
-def _build_target(target, config):
+def _build_target(target: str, config: dict):
     del config['__target__']
     
     tgt_class_path = target.split('.')
@@ -84,7 +84,7 @@ def _build_target(target, config):
     return tgt_class(**config)
 
 
-def _build_pipeline(key, config, instances):
+def _build_pipeline(key: str, config: dict, instances: dict):
     pipe = None
     for idx, v in enumerate(config):
         if pipe is not None and v.get('pipe', None) is None:

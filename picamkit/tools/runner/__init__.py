@@ -30,7 +30,7 @@ def run():
     
     # load the config file
     print("Loading config", flush=True)
-    cfg = config.load(args.config, **config_vars)
+    cfg = config.load(args.config, config_vars)
     
     # save the config file into the output dir
     os.makedirs(config_vars['output_dir'], exist_ok=True)

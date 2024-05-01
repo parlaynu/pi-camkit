@@ -1,10 +1,11 @@
 import os
 import json
+from picamera2 import Picamera2
 
 from .stringify import stringify_dict
 
 
-def save_camera_configs(camera, outdir, *, prefix="cam"):
+def save_camera_configs(camera: Picamera2, outdir: str, *, prefix: str = "cam") -> bool:
     
     os.makedirs(outdir, exist_ok=True)
     

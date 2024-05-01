@@ -31,8 +31,8 @@ configure_cam:
     camera:
       __instance__: camera
     outdir: {{ output_dir }}
-  # - __target__: picamkit.utils.wait_for
-  #   seconds: 5
+  - __target__: picamkit.utils.wait_for
+    seconds: 5
 
 
 # the pipeline of generators
