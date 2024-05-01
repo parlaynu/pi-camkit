@@ -60,11 +60,11 @@ Running the capture session looks like this:
     - width: 1280
     - height: 720
     - preserve_aspect: True
-    Building picamkit.ops.io.save_item
+    Building picamkit.ops.sink.save_item
     - outdir: local/1713146422
     - prefix: img
     - mdata_key: metadata
-    Building picamkit.ops.io.save_rgb
+    Building picamkit.ops.sink.save_rgb
     - outdir: local/1713146422
     - file_format: png
     - image_key: main.image
@@ -140,6 +140,6 @@ The other features are provided with some operators in the toolkit as shown in t
 | Feature                | Operator                                                  |
 | ---------------------- | --------------------------------------------------------- |
 | Splitting the Pipeline | [picamkit.ops.utils.tee](picamkit/ops/utils/tee.py)       |
+| Joining two Pipelines  | [picamkit.ops.utils.zip](picamkit/ops/utils/zip.py)   |
 | Running in own Thread  | [picamkit.ops.utils.worker](picamkit/ops/utils/worker.py) |
-| Merging the Pipelines  | [picamkit.ops.utils.merge](picamkit/ops/utils/merge.py)   |
 
