@@ -1,3 +1,4 @@
+from typing import Generator
 import os
 import time
 import numpy as np
@@ -9,16 +10,19 @@ except:
     boto3 = None
 
 
-def s3_reader(bucket, prefix, *, 
-    seekable=False, 
-    profile_name=None, 
-    region_name=None, 
-    aws_access_key_id=None, 
-    aws_secret_access_key=None, 
-    aws_session_token=None,
-    endpoint_url=None,
-    extensions={'.png', '.jpg', '.jpeg'}
-):
+def s3_reader(
+    bucket: str, 
+    prefix: str, 
+    *, 
+    seekable: bool = False, 
+    profile_name: str = None, 
+    region_name: str = None, 
+    aws_access_key_id: str = None, 
+    aws_secret_access_key: str = None, 
+    aws_session_token: str = None,
+    endpoint_url: str = None,
+    extensions: dict = {'.png', '.jpg', '.jpeg'}
+) -> Generator[dict, None, None]:
 
     print(f"Building picamkit.ops.sources.s3_reader")
 
@@ -63,7 +67,12 @@ def s3_reader(bucket, prefix, *,
     return gen()
 
 
-def _s3_scanner(client, bucket, prefix, extensions):
+def _s3_scanner(
+    client, # boto3.Client 
+    bucket: str, 
+    prefix: str, 
+    extensions: dict
+) -> Generator[dict, None, None]:
 
     # make sure the extensions are in the correct format
     exts = list(extensions)

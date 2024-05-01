@@ -1,10 +1,17 @@
+from typing import Generator
 import os
 import time
 import cv2
 
 # Mimic the opration of the Pi camera but read images from a directory
 
-def fs_reader(idir, *, sort=False, recursive=False, extensions={'.png', '.jpg', '.jpeg'}):
+def fs_reader(
+    idir: str, 
+    *, 
+    sort: bool = False, 
+    recursive: bool = False, 
+    extensions: dict = {'.png', '.jpg', '.jpeg'}
+) -> Generator[dict, None, None]:
 
     # make sure the extensions are in the correct format
     exts = list(extensions)
@@ -31,7 +38,13 @@ def fs_reader(idir, *, sort=False, recursive=False, extensions={'.png', '.jpg', 
     return gen()
 
 
-def _fs_reader(idir, *, sort, recursive, extensions={'.png', '.jpg', '.jpeg'}):
+def _fs_reader(
+    idir: str, 
+    *, 
+    sort: bool, 
+    recursive: bool, 
+    extensions: dict = {'.png', '.jpg', '.jpeg'}
+) -> Generator[dict, None, None]:
     
     idir = os.path.expanduser(idir)
     images = os.scandir(idir)

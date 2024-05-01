@@ -1,3 +1,4 @@
+from typing import Generator, Iterable
 import collections
 import threading
 import time
@@ -8,7 +9,7 @@ import time
 # - return the generators in a list so the builder can mutate it
 # - safe for generators to be called from different threads
 
-def tee(pipe, *, count):
+def tee(pipe: Generator[dict, None, None], *, count: int) -> Iterable[Generator[dict, None, None]]:
     print("Building picamkit.ops.utils.tee")
     print(f"- count: {count}")
 

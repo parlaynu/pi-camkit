@@ -1,9 +1,15 @@
+from typing import Generator
 import sys
 import threading
 import queue
 
 
-def worker(pipe, *, qlen=1):
+def worker(
+    pipe: Generator[dict, None, None], 
+    *, 
+    qlen: int = 1
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.utils.worker")
     print(f"- qlen: {qlen}")
 

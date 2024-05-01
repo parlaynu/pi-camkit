@@ -1,7 +1,8 @@
+from typing import Generator
 import numpy as np
 
 
-def fake_capture(pipe, *, width=640, height=480):
+def fake_capture(pipe: Generator[dict, None, None], *, width: int = 640, height: int = 480) -> Generator[dict, None, None]:
     print("Building picamkit.ops.debug.fake_capture")
     print(f"- width: {width}")
     print(f"- height: {height}")

@@ -1,5 +1,8 @@
+from typing import Generator
 import time
 import numpy as np
+
+from picamera2 import Picamera2
 
 
 image_dtypes = {
@@ -12,7 +15,14 @@ image_dtypes = {
 }
 
 
-def capture(pipe, camera, *, arrays=['main'], immediate=False):
+def capture(
+    pipe: Generator[dict, None, None], 
+    camera: Picamera2, 
+    *, 
+    arrays: dict = ['main'],
+    immediate: bool = False
+) -> Generator[dict, None, None]:
+
     
     print(f"Building picamkit.ops.camera.capture")
     print(f"- arrays: {arrays}")

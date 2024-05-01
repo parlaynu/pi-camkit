@@ -1,7 +1,8 @@
+from typing import Generator
 import numpy as np
 
 
-def dump(pipe):
+def dump(pipe: Generator[dict, None, None]) -> Generator[dict, None, None]:
     print("Building picamkit.ops.debug.dump")
 
     def gen():
@@ -20,7 +21,7 @@ def dump(pipe):
     return gen()
 
 
-def _dump_dict(item, indent="  "):
+def _dump_dict(item: dict, indent: str = "  ") -> None:
     for k in sorted(item.keys()):
         v = item[k]
         
@@ -38,7 +39,7 @@ def _dump_dict(item, indent="  "):
             print(f"{indent}{k}: {type(v)}")
 
 
-def _dump_list(item, indent="  "):
+def _dump_list(item: list, indent: str = "  ") -> None:
     for v in item:
         if isinstance(v, (str, int, float)):
             print(f"{indent}- {v}") 

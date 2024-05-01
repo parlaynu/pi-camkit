@@ -1,9 +1,17 @@
+from typing import Generator
 import os
 import json
 import numpy as np
 
 
-def save_item(pipe, outdir, *, prefix='img', mdata_key='metadata'):
+def save_item(
+    pipe: Generator[dict, None, None], 
+    outdir: str, 
+    *, 
+    prefix: str = 'img', 
+    mdata_key: str = 'metadata'
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.io.save_item")
     print(f"- outdir: {outdir}")
     print(f"- prefix: {prefix}")

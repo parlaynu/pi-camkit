@@ -1,3 +1,4 @@
+from typing import Generator
 import os
 import shutil
 import cv2
@@ -10,16 +11,18 @@ image_formats = {
 
 
 def save_movie(
-    pipe, outdir, *, 
-    movie_fps=2,
-    max_width=1280,
-    max_height=720,
-    images_per_movie=100, 
-    image_file_format='png', 
-    image_key='main.image', 
-    format_key='main.format',
-    cleanup=True
-):
+    pipe: Generator[dict, None, None], 
+    outdir: str, 
+    *, 
+    movie_fps: int = 2,
+    max_width: int = 1280,
+    max_height: int = 720,
+    images_per_movie: int = 100, 
+    image_file_format: str = 'png', 
+    image_key: str = 'main.image', 
+    format_key: str = 'main.format',
+    cleanup: bool = True
+) -> Generator[dict, None, None] :
 
     print("Building picamkit.ops.io.save_movie")
     print(f"- outdir: {outdir}")
@@ -96,8 +99,14 @@ def save_movie(
     return gen()
 
 
-def make_movie(cache_dir, movie_idx, movie_fps, image_file_format, cleanup):
-    
+def _make_movie(
+    cache_dir: str, 
+    movie_idx: int, 
+    movie_fps: int, 
+    image_file_format: str, 
+    cleanup: bool
+) -> None:
+
     image_extension = image_file_format
     if not image_extension.startswith('.'):
         image_extension = '.' + image_extension

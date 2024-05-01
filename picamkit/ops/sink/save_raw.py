@@ -1,3 +1,4 @@
+from typing import Generator
 import os
 import cv2
 import numpy as np
@@ -10,7 +11,14 @@ bayer_codes = {
     'SRGGB16': cv2.COLOR_BayerRGGB2BGR,
 }
 
-def save_raw(pipe, outdir, *, image_key='raw.image', format_key='raw.format', prefix='img'):
+def save_raw(
+    pipe: Generator[dict, None, None], 
+    outdir: str, 
+    *, 
+    image_key: str = 'raw.image', 
+    format_key: str = 'raw.format', 
+    prefix: str = 'img'
+) -> Generator[dict, None, None]:
     
     print("Building picamkit.ops.io.save_raw")
     print(f"- outdir: {outdir}")
@@ -56,7 +64,14 @@ def save_raw(pipe, outdir, *, image_key='raw.image', format_key='raw.format', pr
     return gen()
 
 
-def save_raw8(pipe, outdir, *, image_key='raw.image', format_key='raw.format', prefix='img'):
+def save_raw8(
+    pipe: Generator[dict, None, None], 
+    outdir: str, 
+    *, 
+    image_key: str = 'raw.image', 
+    format_key: str = 'raw.format', 
+    prefix: str = 'img'
+) -> Generator[dict, None, None]:
     
     print("Building picamkit.ops.io.save_raw8")
     print(f"- outdir: {outdir}")

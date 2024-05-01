@@ -1,7 +1,8 @@
+from typing import Generator
 import time
 
 
-def timeskip(pipe, *, seconds=1.0):
+def timeskip(pipe: Generator[dict, None, None], *, seconds: float=1.0) -> Generator[dict, None, None]:
     print("Building picamkit.ops.utils.timeskip")
     print(f"- seconds: {seconds}")
     
@@ -16,7 +17,7 @@ def timeskip(pipe, *, seconds=1.0):
     return gen()
 
 
-def frameskip(pipe, *, frames=24):
+def frameskip(pipe: Generator[dict, None, None], *, frames: int = 24) -> Generator[dict, None, None]:
     print("Building picamkit.ops.utils.timeskip")
     print(f"- frames: {frames}")
 

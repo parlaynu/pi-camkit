@@ -1,3 +1,4 @@
+from typing import Generator
 import os
 import cv2
 
@@ -7,7 +8,16 @@ image_formats = {
     'BGR888'
 }
 
-def save_rgb(pipe, outdir, *, file_format='png', image_key='main.image', format_key='main.format', prefix='img'):
+
+def save_rgb(
+    pipe: Generator[dict, None, None], 
+    outdir: str, 
+    *, 
+    file_format: str = "png",
+    image_key: str = 'main.image', 
+    format_key: str = 'main.format', 
+    prefix: str = 'img'
+) -> Generator[dict, None, None]:
     
     print("Building picamkit.ops.io.save_rgb")
     print(f"- outdir: {outdir}")

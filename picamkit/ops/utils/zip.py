@@ -1,7 +1,16 @@
+from typing import Generator
 import builtins
 
 
-def zip(pipe1, name1, pipe2, name2, *, grouped=False):
+def zip(
+    pipe1: Generator[dict, None, None], 
+    name1: str, 
+    pipe2: Generator[dict, None, None], 
+    name2: str, 
+    *, 
+    grouped: bool = False
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.utils.zip")
     print(f"- name1: {name1}")
     print(f"- name2: {name2}")

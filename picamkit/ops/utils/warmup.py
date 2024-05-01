@@ -1,7 +1,14 @@
+from typing import Generator
 import time
 
 
-def warmup(pipe, *, frames=0, seconds=0):
+def warmup(
+    pipe: Generator[dict, None, None], 
+    *, 
+    frames: int = 0, 
+    seconds: float = 0
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.utils.warmup")
     if frames > 0:
         print(f"- frames: {frames}")

@@ -1,7 +1,8 @@
+from typing import Generator
 import time
 
 
-def rate_limit(pipe, fps):
+def rate_limit(pipe: Generator[dict, None, None], fps: float) -> Generator[dict, None, None]:
     print("Building picamkit.ops.utils.rate_limit")
     print(f"- fps: {fps}")
     

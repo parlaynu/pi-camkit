@@ -1,5 +1,13 @@
+from typing import Generator
 
-def chain(pipe1, name1, pipe2, name2):
+
+def chain(
+    pipe1: Generator[dict, None, None], 
+    name1: str, 
+    pipe2: Generator[dict, None, None], 
+    name2: str
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.utils.chain")
     print(f"- name1: {name1}")
     print(f"- name2: {name2}")

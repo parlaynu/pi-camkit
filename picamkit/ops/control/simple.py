@@ -1,9 +1,10 @@
+from typing import Generator
 import time
 from functools import partial
 from itertools import count, islice
 
 
-def simple(fps=0, max_frames=0):
+def simple(fps: float = 0.0, max_frames: int = 0) -> Generator[dict, None, None]:
     print(f"Building picamkit.ops.control.simple")
     if fps > 0:
         print(f"- fps: {fps}")

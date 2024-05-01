@@ -1,5 +1,8 @@
+from typing import Generator
 import sys
 import numpy as np
+
+from picamera2 import Picamera2
 
 
 image_dtypes = {
@@ -12,7 +15,12 @@ image_dtypes = {
 }
 
 
-def capture_async(pipe, camera, *, arrays=['main']):
+def capture_async(
+    pipe: Generator[dict, None, None], 
+    camera: Picamera2, 
+    *, 
+    arrays: dict = ['main']
+) -> Generator[dict, None, None]:
     
     print(f"Building picamkit.ops.camera.capture_async")
     print(f"  arrays: {arrays}")

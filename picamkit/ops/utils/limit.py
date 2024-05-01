@@ -1,8 +1,15 @@
+from typing import Generator
 import time
 import sys
 
 
-def limit(pipe, *, max_frames=sys.maxsize, max_seconds=sys.maxsize):
+def limit(
+    pipe: Generator[dict, None, None], 
+    *, 
+    max_frames: int = sys.maxsize, 
+    max_seconds: float = sys.maxsize
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.utils.limit")
     if max_frames < sys.maxsize:
         print(f"- max_frames: {max_frames}")

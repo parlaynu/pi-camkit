@@ -1,9 +1,11 @@
+from typing import Generator
 import time
 import select
 from itertools import count
 
 
-def flirc_exit(fps=0, max_frames=0):
+def flirc_exit(fps: float = 0.0, max_frames: int = 0) -> Generator[dict, None, None]:
+
     print(f"Building picamkit.ops.control.flirc_exit")
     if fps > 0:
         print(f"- fps: {fps}")

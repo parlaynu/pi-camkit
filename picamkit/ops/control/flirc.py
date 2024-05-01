@@ -1,8 +1,10 @@
+from typing import Generator
 import select
 import time
 
 
-def flirc(timeout=1.0):
+def flirc(timeout: float = 1.0) -> Generator[dict, None, None]:
+
     print(f"Building picamkit.ops.control.flirc")
     print(f"- timeout: {timeout}")
 

@@ -1,7 +1,16 @@
+from typing import Generator
 import cv2
 
 
-def resize(pipe, *, width, height, image_key='main.image', preserve_aspect=True):
+def resize(
+    pipe: Generator[dict, None, None], 
+    *, 
+    width: int, 
+    height: int, 
+    image_key: str = 'main.image', 
+    preserve_aspect: bool = True
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.imaging.resize")
     print(f"- image_key: {image_key}")
     print(f"- width: {width}")
@@ -43,7 +52,13 @@ def resize(pipe, *, width, height, image_key='main.image', preserve_aspect=True)
     return gen()
 
 
-def scale(pipe, *, factor, image_key='main.image'):
+def scale(
+    pipe: Generator[dict, None, None], 
+    *, 
+    factor: float, 
+    image_key: str = 'main.image'
+) -> Generator[dict, None, None]:
+
     print("Building picamkit.ops.imaging.scale")
     print(f"- image_key: {image_key}")
     print(f"- factor: {factor}")
