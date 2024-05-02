@@ -43,7 +43,8 @@ def set_exposure(
     print("Setting exposure", flush=True)
     
     # set the camera exposure and wait for it to settle
-    if auto or analogue_gain==0 or exposure_time==0:
+    if auto:
+        print("setting auto exposure")
         camera.set_controls({
             'AeEnable': True,
             'AeMeteringMode': _metering_modes[metering_mode],
@@ -57,6 +58,12 @@ def set_exposure(
                     break
     
     else:
+        mdata = camera.capture_metadata()
+        if analogue_gain == 0:
+            analogue_gain = mdata['AnalogueGain']
+        if exposure_time == 0:
+            exposure_time = mdata['ExposureTime']
+
         camera.set_controls({
             'AeEnable': False,
             'AnalogueGain': analogue_gain,

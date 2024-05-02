@@ -35,12 +35,11 @@ def set_whitebalance(
             'AwbMode': _awb_modes[mode]
         })
     else:
-        if red_gain == 0 or blue_gain == 0:
-            mdata = camera.capture_metadata()
-            red_cur, blue_cur = mdata['ColourGains']
-            
-            red_gain = red_cur if red_gain == 0 else red_gain
-            blue_gain = blue_cur if blue_gain == 0 else blue_gain
+        mdata = camera.capture_metadata()
+        if red_gain == 0:
+            red_gain = mdata['ColourGains'][0]
+        if blue_gain == 0:
+            blue_gain = mdata['ColourGains'][1]
         
         camera.set_controls({
             'AwbEnable': False,

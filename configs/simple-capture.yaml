@@ -16,10 +16,11 @@ configure_cam:
       __instance__: camera
     auto: true
     metering_mode:
-      __enum__: picamkit.camera.MeteringModeEnum.SPOT
+      __enum__: picamkit.camera.MeteringModeEnum.CENTRE_WEIGHTED
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera
+    auto: true
     mode:
       __enum__: picamkit.camera.AwbModeEnum.AUTO
   - __target__: picamkit.camera.set_focus
