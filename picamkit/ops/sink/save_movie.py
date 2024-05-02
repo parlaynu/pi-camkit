@@ -24,7 +24,7 @@ def save_movie(
     cleanup: bool = True
 ) -> Generator[dict, None, None] :
 
-    print("Building picamkit.ops.io.save_movie")
+    print("Building picamkit.ops.sink.save_movie")
     print(f"- outdir: {outdir}")
     print(f"- movie_fps: {movie_fps}")
     print(f"- max_width: {max_width}")

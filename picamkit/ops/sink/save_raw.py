@@ -20,7 +20,7 @@ def save_raw(
     prefix: str = 'img'
 ) -> Generator[dict, None, None]:
     
-    print("Building picamkit.ops.io.save_raw")
+    print("Building picamkit.ops.sink.save_raw")
     print(f"- outdir: {outdir}")
     print(f"- image_key: {image_key}")
     print(f"- format_key: {format_key}")
@@ -73,7 +73,7 @@ def save_raw8(
     prefix: str = 'img'
 ) -> Generator[dict, None, None]:
     
-    print("Building picamkit.ops.io.save_raw8")
+    print("Building picamkit.ops.sink.save_raw8")
     print(f"- outdir: {outdir}")
     print(f"- image_key: {image_key}")
     print(f"- format_key: {format_key}")

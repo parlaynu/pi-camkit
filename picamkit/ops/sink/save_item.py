@@ -12,7 +12,7 @@ def save_item(
     mdata_key: str = 'metadata'
 ) -> Generator[dict, None, None]:
 
-    print("Building picamkit.ops.io.save_item")
+    print("Building picamkit.ops.sink.save_item")
     print(f"- outdir: {outdir}")
     print(f"- prefix: {prefix}")
     print(f"- mdata_key: {mdata_key}")

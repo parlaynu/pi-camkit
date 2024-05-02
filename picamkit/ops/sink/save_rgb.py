@@ -19,7 +19,7 @@ def save_rgb(
     prefix: str = 'img'
 ) -> Generator[dict, None, None]:
     
-    print("Building picamkit.ops.io.save_rgb")
+    print("Building picamkit.ops.sink.save_rgb")
     print(f"- outdir: {outdir}")
     print(f"- file_format: {file_format}")
     print(f"- image_key: {image_key}")
