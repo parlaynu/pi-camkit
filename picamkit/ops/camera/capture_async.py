@@ -19,7 +19,7 @@ def capture_async(
     pipe: Generator[dict, None, None], 
     camera: Picamera2, 
     *, 
-    arrays: dict = ['main']
+    arrays: list = ['main']
 ) -> Generator[dict, None, None]:
     
     print(f"Building picamkit.ops.camera.capture_async")

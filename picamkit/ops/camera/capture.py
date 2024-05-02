@@ -19,7 +19,7 @@ def capture(
     pipe: Generator[dict, None, None], 
     camera: Picamera2, 
     *, 
-    arrays: dict = ['main'],
+    arrays: list = ['main'],
     immediate: bool = False
 ) -> Generator[dict, None, None]:
 
