@@ -32,9 +32,9 @@ def set_exposure(
     camera: Picamera2, 
     *, 
     auto: bool = True, 
-    metering_mode: str = MeteringModeEnum.CENTRE_WEIGHTED, 
-    exposure_mode: str = ExposureModeEnum.NORMAL,
-    constraint_mode: str = ConstraintModeEnum.NORMAL,
+    metering_mode: MeteringModeEnum = MeteringModeEnum.CENTRE_WEIGHTED, 
+    exposure_mode: ExposureModeEnum = ExposureModeEnum.NORMAL,
+    constraint_mode: ConstraintModeEnum = ConstraintModeEnum.NORMAL,
     analogue_gain: int = 0, 
     exposure_time: int = 0, 
     wait: bool = False

@@ -24,7 +24,7 @@ def set_focus(
     camera: Picamera2, 
     *,
     mode: AfModeEnum = AfModeEnum.AUTO,
-    speed: str = AfSpeedEnum.NORMAL,
+    speed: AfSpeedEnum = AfSpeedEnum.NORMAL,
     lens_position: float = 1.0,
     wait: bool = False
 ) -> bool:
