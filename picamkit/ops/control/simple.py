@@ -4,7 +4,12 @@ from functools import partial
 from itertools import count, islice
 
 
-def simple(fps: float = 0.0, max_frames: int = 0) -> Generator[dict, None, None]:
+def simple(
+    fps: float = 0.0, 
+    max_frames: int = 0
+) -> Generator[dict, None, None]:
+    """Simple controller that can limit the fps and max frames captured"""    
+    
     print(f"Building picamkit.ops.control.simple")
     if fps > 0:
         print(f"- fps: {fps}")

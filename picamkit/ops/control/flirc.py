@@ -3,7 +3,10 @@ import select
 import time
 
 
-def flirc(timeout: float = 1.0) -> Generator[dict, None, None]:
+def flirc(
+    timeout: float = 1.0
+) -> Generator[dict, None, None]:
+    """Controller that only captures when the flirc IR remote is pressed"""
 
     print(f"Building picamkit.ops.control.flirc")
     print(f"- timeout: {timeout}")

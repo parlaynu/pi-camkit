@@ -4,7 +4,11 @@ import select
 from itertools import count
 
 
-def flirc_exit(fps: float = 0.0, max_frames: int = 0) -> Generator[dict, None, None]:
+def flirc_exit(
+    fps: float = 0.0, 
+    max_frames: int = 0
+) -> Generator[dict, None, None]:
+    """Controller that can stop the capture based on the exit signal from a flirc IR remote."""
 
     print(f"Building picamkit.ops.control.flirc_exit")
     if fps > 0:
