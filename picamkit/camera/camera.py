@@ -24,7 +24,7 @@ def Camera(
         The id of the camera on the system to use. Generally set to '0', but on Pi5 can also be '1'.
     mode : int
         The sensor mode to use. Available options depend on the camera in use.
-    main_format: str
+    main_format: str, optional
         The format for images from the main stream. Despite the naming, the 'RGB888' format creates
         images in the OpenCV BGR format.
     vflip : bool, optional
@@ -34,7 +34,9 @@ def Camera(
     preview: bool, optional
         Preview the image on a DRM display.
     min_frameduration : int, optional
-        Sets the minimum time between frames in milliseconds.
+        Sets the minimum time between frames in microseconds. Normally the camera will run as fast
+        as it can for the mode and the exposure time needed. This provides an override to effectively 
+        set a maximum possible frame rate.
     initial_controls : dict, optional
         Set additional controls on the camera. There are a lot of available controls and they can
         be found in the Picamera2 official documentation.
