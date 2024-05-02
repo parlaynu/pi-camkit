@@ -1,3 +1,4 @@
+"""Functions and Enums to build and configure Picamera2 objects."""
 from .camera import Camera
 
 from .exposure import set_exposure, MeteringModeEnum, ExposureModeEnum, ConstraintModeEnum

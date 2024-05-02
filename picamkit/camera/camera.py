@@ -16,6 +16,29 @@ def Camera(
     min_frameduration: int = 0, 
     initial_controls: dict = {}
 ) -> Picamera2:
+    """Build a Picamera2 object and apply initial configuration and controls.
+
+    Parameters
+    ----------
+    camera_id : int
+        The id of the camera on the system to use. Generally set to '0', but on Pi5 can also be '1'.
+    mode : int
+        The sensor mode to use. Available options depend on the camera in use.
+    main_format: str
+        The format for images from the main stream. Despite the naming, the 'RGB888' format creates
+        images in the OpenCV BGR format.
+    vflip : bool, optional
+        Apply vertical flip to the image.
+    hflip: bool, optional
+        Apply a horizontal flip to the image.
+    preview: bool, optional
+        Preview the image on a DRM display.
+    min_frameduration : int, optional
+        Sets the minimum time between frames in milliseconds.
+    initial_controls : dict, optional
+        Set additional controls on the camera. There are a lot of available controls and they can
+        be found in the Picamera2 official documentation.
+    """
 
     # create the camera object
     cam = Picamera2(camera_id)
