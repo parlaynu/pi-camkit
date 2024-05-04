@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-apt install -y python3-pip
-apt install -y python3-numpy python3-opencv
+# core packages
+apt install -y python3-pip python3-numpy python3-opencv
+
+# for flirc controller
 apt install -y python3-evdev
+
+# for aws s3 as image source
 apt install -y python3-boto3 awscli
-apt install -y python3-pytest
+
+# for testing
+apt install -y python3-pytest python3-pil

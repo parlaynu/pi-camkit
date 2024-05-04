@@ -1,11 +1,27 @@
 import time
-from enum import StrEnum
 
 from libcamera import controls
 from picamera2 import Picamera2
 
 
-AwbModeEnum = StrEnum('AwbMode', ['AUTO', 'TUNGSTEN', 'FLUORESCENT', 'INDOOR', 'DAYLIGHT', 'CLOUDY'])
+# from enum import StrEnum
+# AwbModeEnum = StrEnum('AwbMode', ['AUTO', 'TUNGSTEN', 'FLUORESCENT', 'INDOOR', 'DAYLIGHT', 'CLOUDY'])
+
+# building Enums this way for compatibility with python versions before 3.11 and StrEnum
+class AwbModeEnum:
+    def __init__(self, value):
+        self.value = value
+        assert value in { AwbModeEnum.AUTO, AwbModeEnum.TUNGSTEN, AwbModeEnum.FLUORESCENT, AwbModeEnum.INDOOR,  AwbModeEnum.DAYLIGHT, AwbModeEnum.CLOUDY }
+    
+    def __str__(self):
+        return self.value
+    
+    AUTO = "auto"
+    TUNGSTEN = "tungsten"
+    FLUORESCENT = "fluorescent"
+    INDOOR = "indoor"
+    DAYLIGHT = "daylight"
+    CLOUDY = "cloudy"
 
 _awb_modes = {
     AwbModeEnum.AUTO: controls.AwbModeEnum.Auto,
@@ -32,7 +48,7 @@ def set_whitebalance(
     if auto:
         camera.set_controls({
             'AwbEnable': True,
-            'AwbMode': _awb_modes[mode]
+            'AwbMode': _awb_modes[str(mode)]
         })
     else:
         mdata = camera.capture_metadata()

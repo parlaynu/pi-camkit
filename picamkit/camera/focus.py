@@ -1,12 +1,38 @@
 import time
-from enum import StrEnum
 
 from libcamera import controls
 from picamera2 import Picamera2
 
 
-AfModeEnum = StrEnum('AfModeEnum', ['MANUAL', 'AUTO', 'CONTINUOUS'])
-AfSpeedEnum = StrEnum('AfSpeedEnum', ['NORMAL', 'FAST'])
+# from enum import StrEnum
+# AfModeEnum = StrEnum('AfModeEnum', ['MANUAL', 'AUTO', 'CONTINUOUS'])
+# AfSpeedEnum = StrEnum('AfSpeedEnum', ['NORMAL', 'FAST'])
+
+# building Enums this way for compatibility with python versions before 3.11 and StrEnum
+class AfModeEnum:
+    def __init__(self, value):
+        self.value = value
+        assert value in { AfModeEnum.MANUAL, AfModeEnum.AUTO, AfModeEnum.CONTINUOUS }
+    
+    def __str__(self):
+        return self.value
+    
+    MANUAL = "manual"
+    AUTO = "auto"
+    CONTINUOUS = "continuous"
+
+class AfSpeedEnum:
+    def __init__(self, value):
+        self.value = value
+        assert value in { AfSpeedEnum.NORMAL, AfSpeedEnum.FAST }
+    
+    def __str__(self):
+        return self.value
+    
+    NORMAL = "normal"
+    FAST = "fast"
+
+
 
 _af_modes = {
     AfModeEnum.MANUAL: controls.AfModeEnum.Manual,
@@ -31,11 +57,10 @@ def set_focus(
 
     print("Setting focus", flush=True)
     
-    mode = mode.lower()
-    if mode == 'auto' or mode == 'continuous':
+    if str(mode) == AfModeEnum.AUTO or str(mode) == AfModeEnum.CONTINUOUS:
         ctrls = {
-            'AfMode': _af_modes[mode],
-            'AfSpeed': _af_speeds[speed],
+            'AfMode': _af_modes[str(mode)],
+            'AfSpeed': _af_speeds[str(speed)],
         }
         if mode == 'auto':
             ctrls['AfTrigger'] = controls.AfTriggerEnum.Start
@@ -44,7 +69,7 @@ def set_focus(
     
     else:
         camera.set_controls({
-            'AfMode': _af_modes[mode],
+            'AfMode': _af_modes[str(mode)],
             'LensPosition': lens_position
         })
     
