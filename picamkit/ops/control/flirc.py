@@ -2,6 +2,8 @@ from typing import Generator
 import select
 import time
 
+from .exceptions import FlircNotFoundError
+
 
 def flirc(
     timeout: float = 1.0
@@ -23,7 +25,7 @@ def flirc(
         device = None
     
     if device is None:
-        raise ValueError("no flirc device found")
+        raise FlircNotFoundError()
 
     print(f"- controller: {device.path} {device.name}")
     

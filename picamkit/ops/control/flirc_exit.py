@@ -3,6 +3,8 @@ import time
 import select
 from itertools import count
 
+from .exceptions import FlircNotFoundError
+
 
 def flirc_exit(
     fps: float = 0.0, 
@@ -28,7 +30,7 @@ def flirc_exit(
         device = None
     
     if device is None:
-        raise ValueError("no flirc device found")
+        raise FlircNotFoundError()
 
     print(f"- controller: {device.path} {device.name}")
     
