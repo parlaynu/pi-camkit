@@ -1,51 +1,13 @@
 import time
+from enum import IntEnum
 
 from libcamera import controls
 from picamera2 import Picamera2
 
 
-# from enum import StrEnum
-# MeteringModeEnum = StrEnum('MeteringModeEnum', ['CENTRE_WEIGHTED', 'SPOT', 'MATRIX'])
-# ExposureModeEnum = StrEnum('ExposureModeEnum', ['NORMAL', 'SHORT', 'LONG'])
-# ConstraintModeEnum = StrEnum('ConstraintModeEnum', ['NORMAL', 'HIGHLIGHT', 'SHADOWS'])
-
-# building Enums this way for compatibility with python versions before 3.11 and StrEnum
-class MeteringModeEnum:
-    def __init__(self, value):
-        self.value = value
-        assert value in { MeteringModeEnum.CENTRE_WEIGHTED, MeteringModeEnum.SPOT, MeteringModeEnum.MATRIX }
-    
-    def __str__(self):
-        return self.value
-    
-    CENTRE_WEIGHTED = "centre_weighted"
-    SPOT = "spot"
-    MATRIX = "matrix"
-
-class ExposureModeEnum:
-    def __init__(self, value):
-        self.value = value
-        assert value in { ExposureModeEnum.NORMAL, ExposureModeEnum.SHORT, ExposureModeEnum.LONG }
-    
-    def __str__(self):
-        return self.value
-    
-    NORMAL = "normal"
-    SHORT = "short"
-    LONG = "long"
-
-class ConstraintModeEnum:
-    def __init__(self, value):
-        self.value = value
-        assert value in { ConstraintModeEnum.NORMAL, ConstraintModeEnum.HIGHLIGHT, ConstraintModeEnum.SHADOWS }
-    
-    def __str__(self):
-        return self.value
-    
-    NORMAL = "normal"
-    HIGHLIGHT = "highlight"
-    SHADOWS = "shadows"
-
+MeteringModeEnum = IntEnum('MeteringModeEnum', ['CENTRE_WEIGHTED', 'SPOT', 'MATRIX'])
+ExposureModeEnum = IntEnum('ExposureModeEnum', ['NORMAL', 'SHORT', 'LONG'])
+ConstraintModeEnum = IntEnum('ConstraintModeEnum', ['NORMAL', 'HIGHLIGHT', 'SHADOWS'])
 
 _metering_modes = {
     MeteringModeEnum.CENTRE_WEIGHTED: controls.AeMeteringModeEnum.CentreWeighted,
@@ -78,21 +40,16 @@ def set_exposure(
     wait: bool = False
 ) -> bool:
 
-    print("Setting exposure", flush=True)
+    print(f"Setting exposure", flush=True)
     
     # set the camera exposure and wait for it to settle
     if auto:
         camera.set_controls({
             'AeEnable': True,
-            'AeMeteringMode': _metering_modes[str(metering_mode)],
-            'AeExposureMode': _exposure_modes[str(exposure_mode)],
-            'AeConstraintMode': _constraint_modes[str(constraint_mode)]
+            'AeMeteringMode': _metering_modes[metering_mode],
+            'AeExposureMode': _exposure_modes[exposure_mode],
+            'AeConstraintMode': _constraint_modes[constraint_mode]
         })
-        if wait:
-            while True:
-                mdata = camera.capture_metadata()
-                if mdata['AeLocked'] == True:
-                    break
     
     else:
         mdata = camera.capture_metadata()
@@ -106,8 +63,18 @@ def set_exposure(
             'AnalogueGain': analogue_gain,
             'ExposureTime': exposure_time
         })
-        if wait:
-            time.sleep(0.5)
     
+    if wait:
+        # AeLocked seems to be updated for both auto and manual. And it can flip from
+        # False to True to False while settling so wait for three in a row.
+        count = 0
+        while count < 3:
+            mdata = camera.capture_metadata()
+            if mdata['AeLocked'] == True:
+                count += 1
+            else:
+                count = 0
+            time.sleep(0.1)
+
     return True
 

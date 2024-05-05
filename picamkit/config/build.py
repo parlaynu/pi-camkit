@@ -61,14 +61,14 @@ def _build_enum(target: str, config: dict):
     del config['__enum__']
 
     tgt_class_path = target.split('.')
-    tgt_enum_value = tgt_class_path[-1]
+    tgt_enum_name = tgt_class_path[-1]
     tgt_class_name = tgt_class_path[-2]
     tgt_module_path = '.'.join(tgt_class_path[0:-2])
     
     tgt_module = importlib.import_module(tgt_module_path)
     tgt_class = getattr(tgt_module, tgt_class_name)
     
-    return tgt_class(value=tgt_enum_value.lower())
+    return getattr(tgt_class, tgt_enum_name)
 
 
 def _build_target(target: str, config: dict):

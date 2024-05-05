@@ -1,38 +1,12 @@
 import time
+from enum import IntEnum
 
 from libcamera import controls
 from picamera2 import Picamera2
 
 
-# from enum import StrEnum
-# AfModeEnum = StrEnum('AfModeEnum', ['MANUAL', 'AUTO', 'CONTINUOUS'])
-# AfSpeedEnum = StrEnum('AfSpeedEnum', ['NORMAL', 'FAST'])
-
-# building Enums this way for compatibility with python versions before 3.11 and StrEnum
-class AfModeEnum:
-    def __init__(self, value):
-        self.value = value
-        assert value in { AfModeEnum.MANUAL, AfModeEnum.AUTO, AfModeEnum.CONTINUOUS }
-    
-    def __str__(self):
-        return self.value
-    
-    MANUAL = "manual"
-    AUTO = "auto"
-    CONTINUOUS = "continuous"
-
-class AfSpeedEnum:
-    def __init__(self, value):
-        self.value = value
-        assert value in { AfSpeedEnum.NORMAL, AfSpeedEnum.FAST }
-    
-    def __str__(self):
-        return self.value
-    
-    NORMAL = "normal"
-    FAST = "fast"
-
-
+AfModeEnum = IntEnum('AfModeEnum', ['MANUAL', 'AUTO', 'CONTINUOUS'])
+AfSpeedEnum = IntEnum('AfSpeedEnum', ['NORMAL', 'FAST'])
 
 _af_modes = {
     AfModeEnum.MANUAL: controls.AfModeEnum.Manual,
@@ -52,15 +26,23 @@ def set_focus(
     mode: AfModeEnum = AfModeEnum.AUTO,
     speed: AfSpeedEnum = AfSpeedEnum.NORMAL,
     lens_position: float = 1.0,
+    not_available_ok: bool = False,
     wait: bool = False
 ) -> bool:
 
+    # check to make sure the camera supports autofocus
+    if not_available_ok:
+        mdata = camera.capture_metadata()
+        if 'AfMode' not in mdata:
+            return True
+
+    # now try and focus
     print("Setting focus", flush=True)
     
-    if str(mode) == AfModeEnum.AUTO or str(mode) == AfModeEnum.CONTINUOUS:
+    if mode == AfModeEnum.AUTO or mode == AfModeEnum.CONTINUOUS:
         ctrls = {
-            'AfMode': _af_modes[str(mode)],
-            'AfSpeed': _af_speeds[str(speed)],
+            'AfMode': _af_modes[mode],
+            'AfSpeed': _af_speeds[speed],
         }
         if mode == 'auto':
             ctrls['AfTrigger'] = controls.AfTriggerEnum.Start
@@ -69,18 +51,18 @@ def set_focus(
     
     else:
         camera.set_controls({
-            'AfMode': _af_modes[str(mode)],
+            'AfMode': _af_modes[mode],
             'LensPosition': lens_position
         })
     
     if wait:
-        time.sleep(1.0)
-        if mode == 'auto':
+        if str(mode) == AfModeEnum.AUTO:
             while True:
                 mdata = camera.capture_metadata()
                 if mdata['AfState'] == 2:
                     print(f"- Focus FoM: {mdata['FocusFoM']}")
                     break
+                time.sleep(0.1)
 
     return True
 
