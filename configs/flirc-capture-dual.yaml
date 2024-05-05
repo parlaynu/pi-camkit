@@ -21,14 +21,15 @@ configure_rgb:
   - __target__: picamkit.camera.set_exposure
     camera:
       __instance__: camera_rgb
-    auto: true
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera_rgb
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera_rgb
-    mode: auto
+    mode:
+      __enum__: picamkit.camera.AfModeEnum.AUTO
+    not_available_ok: true
   - __target__: picamkit.utils.save_camera_configs
     camera:
       __instance__: camera_rgb
@@ -39,14 +40,15 @@ configure_noir:
   - __target__: picamkit.camera.set_exposure
     camera:
       __instance__: camera_noir
-    auto: true
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera_noir
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera_noir
-    mode: auto
+    mode:
+      __enum__: picamkit.camera.AfModeEnum.AUTO
+    not_available_ok: true
   - __target__: picamkit.utils.save_camera_configs
     camera:
       __instance__: camera_noir

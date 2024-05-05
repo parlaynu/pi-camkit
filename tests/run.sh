@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-pytest -v .
+pytest-3 -v .
 # pytest -s -v .

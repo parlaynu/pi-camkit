@@ -13,14 +13,12 @@ configure_cam:
   - __target__: picamkit.camera.set_exposure
     camera:
       __instance__: camera
-    auto: true
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera
-    mode: auto
     wait: true
   - __target__: picamkit.utils.save_camera_configs
     camera:

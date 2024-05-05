@@ -5,7 +5,7 @@ from libcamera import controls
 from picamera2 import Picamera2
 
 
-MeteringModeEnum = IntEnum('MeteringModeEnum', ['CENTRE_WEIGHTED', 'SPOT', 'MATRIX'])
+MeteringModeEnum = IntEnum('MeteringModeEnum', ['CENTRE_WEIGHTED', 'SPOT', 'MATRIX', 'MANUAL'])
 ExposureModeEnum = IntEnum('ExposureModeEnum', ['NORMAL', 'SHORT', 'LONG'])
 ConstraintModeEnum = IntEnum('ConstraintModeEnum', ['NORMAL', 'HIGHLIGHT', 'SHADOWS'])
 
@@ -31,7 +31,6 @@ _constraint_modes = {
 def set_exposure(
     camera: Picamera2, 
     *, 
-    auto: bool = True, 
     metering_mode: MeteringModeEnum = MeteringModeEnum.CENTRE_WEIGHTED, 
     exposure_mode: ExposureModeEnum = ExposureModeEnum.NORMAL,
     constraint_mode: ConstraintModeEnum = ConstraintModeEnum.NORMAL,
@@ -43,7 +42,7 @@ def set_exposure(
     print(f"Setting exposure", flush=True)
     
     # set the camera exposure and wait for it to settle
-    if auto:
+    if metering_mode != MeteringModeEnum.MANUAL:
         camera.set_controls({
             'AeEnable': True,
             'AeMeteringMode': _metering_modes[metering_mode],
