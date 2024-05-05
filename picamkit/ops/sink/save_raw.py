@@ -5,10 +5,10 @@ import numpy as np
 
 
 bayer_codes = {
-    'SBGGR16': cv2.COLOR_BayerBGGR2BGR,
-    'SGRBG16': cv2.COLOR_BayerGRBG2BGR,
-    'SGBRG16': cv2.COLOR_BayerGBRG2BGR,
-    'SRGGB16': cv2.COLOR_BayerRGGB2BGR,
+    'SBGGR16': cv2.COLOR_BayerRG2BGR,
+    'SGRBG16': cv2.COLOR_BayerGB2BGR,
+    'SGBRG16': cv2.COLOR_BayerGR2BGR,
+    'SRGGB16': cv2.COLOR_BayerBG2BGR,
 }
 
 def save_raw(
