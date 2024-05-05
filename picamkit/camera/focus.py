@@ -39,30 +39,37 @@ def set_focus(
     # now try and focus
     print("Setting focus", flush=True)
     
+    # build the controls
     if mode == AfModeEnum.AUTO or mode == AfModeEnum.CONTINUOUS:
         ctrls = {
             'AfMode': _af_modes[mode],
             'AfSpeed': _af_speeds[speed],
         }
-        if mode == 'auto':
+        if mode == AfModeEnum.AUTO:
             ctrls['AfTrigger'] = controls.AfTriggerEnum.Start
         
-        camera.set_controls(ctrls)
-    
     else:
-        camera.set_controls({
+        ctrls = {
             'AfMode': _af_modes[mode],
             'LensPosition': lens_position
-        })
+        }
+
+    # set the controls
+    camera.set_controls(ctrls)
     
+    # wait for focus
     if wait:
-        if str(mode) == AfModeEnum.AUTO:
-            while True:
+        if mode == AfModeEnum.MANUAL:
+            time.sleep(0.5)
+        else:
+            for i in range(10):
                 mdata = camera.capture_metadata()
                 if mdata['AfState'] == 2:
+                    print(f"- Lens Position: {mdata['LensPosition']}")
                     print(f"- Focus FoM: {mdata['FocusFoM']}")
                     break
                 time.sleep(0.1)
+
 
     return True
 
