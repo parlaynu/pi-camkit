@@ -24,7 +24,10 @@ def test_control_flirc_exit():
     fps = 10
     max_frames = 25
 
-    pipe = control.flirc_exit(fps=fps, max_frames=max_frames)
+    try:
+        pipe = control.flirc_exit(fps=fps, max_frames=max_frames)
+    except control.FlircNotFoundError:
+        return
     
     start = time.monotonic()
     for idx, item in enumerate(pipe):
@@ -36,6 +39,10 @@ def test_control_flirc_exit():
 
 
 def test_control_flirc():
-    # NOTE: can't automate this as it needs the controller to be pushed. 
-    #       just documenting that this is known.
+    # TODO: how to simulate the flirc controller...
+    try:
+        pipe = control.flirc()
+    except control.FlircNotFoundError:
+        return
+        
     pass
