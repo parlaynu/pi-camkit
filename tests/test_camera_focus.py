@@ -1,6 +1,5 @@
 import pytest
 import time
-from pprint import pprint
 import picamkit.camera as cam
 
 
@@ -14,6 +13,13 @@ def test_default():
         if can_focus(picam) == False:
             return
         cam.set_focus(picam, wait=False)
+        
+        for i in range(10):
+            mdata = picam.capture_metadata()
+            if mdata['AfState'] == 2:
+                break
+            time.sleep(0.1)
+        assert mdata['AfState'] == 2
 
 
 def test_wait():
