@@ -25,4 +25,4 @@ def limit(
         
             yield item
 
-    return gen
+    return gen()
