@@ -20,7 +20,7 @@ def capture(
     camera: Picamera2, 
     *, 
     arrays: list = ['main'],
-    immediate: bool = False
+    immediate: bool = True
 ) -> Generator[dict, None, None]:
 
     
@@ -41,7 +41,7 @@ def capture(
                 start = metadata['SensorTimestamp'] - 1000 * metadata['ExposureTime']
                 if immediate or start >= stamp:
                     break
-        
+
             # assemble the item
             item['metadata'] = metadata
             for idx, array in enumerate(arrays):

@@ -44,5 +44,5 @@ def test_control_flirc():
         pipe = control.flirc()
     except control.FlircNotFoundError:
         return
-        
+    
     pass
