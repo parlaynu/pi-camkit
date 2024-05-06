@@ -8,12 +8,12 @@ from picamera2 import Picamera2
 image_dtypes = {
     'RGB888': np.uint8,
     'BGR888': np.uint8,
+    'SBGGR10': np.uint16,
     'SBGGR16': np.uint16,
     'SGRBG16': np.uint16,
     'SGBRG16': np.uint16,
     'SRGGB16': np.uint16,
 }
-
 
 def capture(
     pipe: Generator[dict, None, None], 
