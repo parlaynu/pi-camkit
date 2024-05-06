@@ -5,11 +5,23 @@ import numpy as np
 
 
 bayer_codes = {
+    'SBGGR10': cv2.COLOR_BayerRG2BGR,
+    'SBGGR12': cv2.COLOR_BayerRG2BGR,
     'SBGGR16': cv2.COLOR_BayerRG2BGR,
     'SGRBG16': cv2.COLOR_BayerGB2BGR,
     'SGBRG16': cv2.COLOR_BayerGR2BGR,
     'SRGGB16': cv2.COLOR_BayerBG2BGR,
 }
+
+bayer_scale = {
+    'SBGGR10': 65535.0/1023.0,
+    'SBGGR12': 65535.0/4095.0,
+    'SBGGR16': 1.0,
+    'SGRBG16': 1.0,
+    'SGBRG16': 1.0,
+    'SRGGB16': 1.0,
+}
+
 
 def save_raw(
     pipe: Generator[dict, None, None], 
@@ -53,10 +65,19 @@ def save_raw(
                     img_path = os.path.join(outdir, f"{prefix}-{idx:04d}-raw.png")
 
                 print(f"Saving {img_path}")
-
-                # demosaic and save the image
+                
+                # scale the image up to the top part of the 16bit word
+                image = image * bayer_scale[image_format]
+                
+                # subtract the sensor black levels
+                black_level = item['metadata']['SensorBlackLevels'][0]
+                image = np.maximum(image, black_level) - black_level
+                
+                # demosaic the image
                 bayer_code = bayer_codes[image_format]
-                image = cv2.demosaicing(image, bayer_code)
+                image = cv2.demosaicing(image.astype(np.uint16), bayer_code)
+
+                # save to disk
                 cv2.imwrite(img_path, image)
         
                 yield item
@@ -91,7 +112,7 @@ def save_raw8(
         
             for item in items:
                 idx = item['idx']
-        
+                
                 image = item
                 for key in image_keys:
                     image = image[key]
@@ -107,16 +128,19 @@ def save_raw8(
 
                 print(f"Saving {img_path}")
 
-                # demosaic the image
-                bayer_code = bayer_codes[image_format]
-                image = cv2.demosaicing(image, bayer_code)
+                # scale the image up to the top part of the 16bit word
+                image = image * bayer_scale[image_format]
 
                 # subtract the sensor black levels
-                # TODO: need to grab this from the metadata file
-                image = np.maximum(image, 4096) - 4096
+                black_level = item['metadata']['SensorBlackLevels'][0]
+                image = np.maximum(image, black_level) - black_level
+
+                # demosaic the image
+                bayer_code = bayer_codes[image_format]
+                image = cv2.demosaicing(image.astype(np.uint16), bayer_code)
 
                 # apply the gamma encoding and convert to 8bit range
-                image = np.power(image, 1.0/2.2) / np.power(65536, 1.0/2.2) * 255
+                image = np.power(image, 1.0/2.2) / np.power(65535, 1.0/2.2) * 255
                 image = image.astype(np.uint8)
 
                 # save the image
