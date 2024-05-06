@@ -21,6 +21,7 @@ configure_cam:
       __instance__: camera
     mode:
       __enum__: picamkit.camera.AfModeEnum.CONTINUOUS
+    not_available_ok: true
   - __target__: picamkit.utils.save_camera_configs
     camera:
       __instance__: camera
@@ -31,7 +32,7 @@ configure_cam:
 
 # the pipeline of generators
 pipeline:
-  - __target__: picamkit.ops.control.flirc_exit
+  - __target__: picamkit.ops.control.simple
     fps: {{ 1.0 / (timelapse_seconds | default(60) | int) }}
     max_frames: {{ num_frames | default(10) }}
   - __target__: picamkit.ops.camera.capture

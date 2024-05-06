@@ -1,7 +1,7 @@
 
 # the pipeline of generators
 pipeline:
-  - __target__: picamkit.ops.sources.fs_reader
+  - __target__: picamkit.ops.source.fs_reader
     idir: {{ image_dir }}
     recursive: True
   - __target__: picamkit.ops.imaging.scale

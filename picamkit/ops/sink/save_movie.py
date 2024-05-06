@@ -87,14 +87,14 @@ def save_movie(
             
                 movie_count += 1
                 if movie_count >= images_per_movie:
-                    make_movie(movie_cache, movie_idx, movie_fps, image_file_format, cleanup)
+                    _make_movie(movie_cache, movie_idx, movie_fps, image_file_format, cleanup)
                     movie_idx += 1
                     movie_count = 0
                     movie_cache = os.path.join(outdir, f"cache-{movie_idx:03d}")
                     os.makedirs(movie_cache, exist_ok=True)
     
         if movie_count > 0:
-            make_movie(movie_cache, movie_idx, movie_fps, image_file_format, cleanup)
+            _make_movie(movie_cache, movie_idx, movie_fps, image_file_format, cleanup)
             
     return gen()
 
