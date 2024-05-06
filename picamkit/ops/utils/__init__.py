@@ -5,8 +5,6 @@ from .tee import tee
 from .zip import zip
 from .chain import chain
 
-from .skip import timeskip, frameskip
-
 from .limit import limit
 from .rate_limit import rate_limit
 

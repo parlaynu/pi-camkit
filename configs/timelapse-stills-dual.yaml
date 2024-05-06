@@ -93,6 +93,7 @@ pipeline:
       __instance__: pipeline_rgb
     name2: rgb
     grouped: true
+    threaded: true
   - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
   - __target__: picamkit.ops.sink.save_rgb

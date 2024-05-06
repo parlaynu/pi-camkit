@@ -9,7 +9,7 @@ import time
 # - return the generators in a list so the builder can mutate it
 # - safe for generators to be called from different threads
 
-def tee(pipe: Generator[dict, None, None], *, count: int) -> Iterable[Generator[dict, None, None]]:
+def tee(pipe: Generator[dict, None, None], *, count: int, threaded: bool = False) -> Iterable[Generator[dict, None, None]]:
     print("Building picamkit.ops.utils.tee")
     print(f"- count: {count}")
 
@@ -24,7 +24,8 @@ def tee(pipe: Generator[dict, None, None], *, count: int) -> Iterable[Generator[
             # using a barrier to ensure that all threads get a chance to
             # execute the code that follows before any one thread can 
             # loop through again.
-            barrier.wait()
+            if threaded:
+                barrier.wait()
             
             with lock:
                 if len(mydeque) == 0:
