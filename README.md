@@ -21,12 +21,13 @@ first install all the necessary dependencies:
 
     $ sudo ./requirements.sh
 
-Then you need to `pip` install this project so the console scripts are created and you can access the
-tools from anywhere on your system.
+Once that is done, you can run the two convenience scripts from the top level directory, for example:
+
+    $ ./ck-run configs/simple-capture.yaml
+
+To install the library and console scripts, you can use `pip`:
 
     $ pip install --break-system-packages --user . 
-
-You can now run the example in the next section.
 
 ## Quick Example
 

@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+from picamkit.tools.ck_run import run
+
+if __name__ == "__main__":
+    run()
