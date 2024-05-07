@@ -29,6 +29,17 @@ def set_focus(
     not_available_ok: bool = False,
     wait: bool = False
 ) -> bool:
+    """Set the camera focus controls.
+
+    If the mode is set to 'AfModeEnum.MANUAL', then use the 'lens_position' parameter to
+    directly control the lens position. 
+
+    If 'not_available_ok' is True, then it will return success for cameras that don't have
+    focus controls.
+
+    If 'wait' is True, then monitor the 'AfState' attribute from the image metadata until
+    it is '2'.
+    """
 
     # check to make sure the camera supports autofocus
     if not_available_ok:

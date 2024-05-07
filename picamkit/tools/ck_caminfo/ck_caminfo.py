@@ -1,3 +1,4 @@
+"""Discover all connected cameras and print all information about them."""
 import os
 os.environ['LIBCAMERA_LOG_LEVELS'] = "*:ERROR"
 

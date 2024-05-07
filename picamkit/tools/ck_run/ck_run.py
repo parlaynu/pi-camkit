@@ -1,3 +1,4 @@
+"""Builds the objects in a configuration file and runs the main pipeline."""
 import argparse
 import time
 import json

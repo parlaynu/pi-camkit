@@ -38,6 +38,14 @@ def set_exposure(
     exposure_time: int = 0, 
     wait: bool = False
 ) -> bool:
+    """Set the camera exposure controls.
+
+    If the metering mode is set to 'MeteringModeEnum.MANUAL', then use the 'analogue_gain' and 
+    'exposure_time' parameters if they are non-zero. If they are zero, don't change them.
+
+    If 'wait' is True, then monitor the 'AeLocked' attribute from the image metadata until
+    it is True.
+    """
 
     print(f"Setting exposure", flush=True)
     
@@ -52,9 +60,9 @@ def set_exposure(
     
     else:
         mdata = camera.capture_metadata()
-        if analogue_gain == 0:
+        if analogue_gain <= 0:
             analogue_gain = mdata['AnalogueGain']
-        if exposure_time == 0:
+        if exposure_time <= 0:
             exposure_time = mdata['ExposureTime']
 
         camera.set_controls({

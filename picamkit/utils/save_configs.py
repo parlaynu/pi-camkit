@@ -6,6 +6,7 @@ from .stringify import stringify_dict
 
 
 def save_camera_configs(camera: Picamera2, outdir: str, *, prefix: str = "cam") -> bool:
+    """Utility function to save the various camera settings to files."""
     
     os.makedirs(outdir, exist_ok=True)
     

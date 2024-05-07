@@ -4,7 +4,13 @@ from jinja2 import Environment, BaseLoader, FileSystemLoader, select_autoescape
 
 
 def load(config_file: str, config_vars: dict) -> dict:
+    """Load the specified configuration file.
+
+    First, expand the contents as a jinja2 template, using the provided 'config_vars' dict
+    to expand any template variables.
     
+    The result should then be valid 'yaml' which is loaded and returned as a python dict.
+    """    
     # load  the jinja2 templates
     if config_file == "-":
         # load from stdin
@@ -34,6 +40,7 @@ def load(config_file: str, config_vars: dict) -> dict:
 
 
 def save(config: dict, save_dir: str, name: str) -> None:
+    """Sace the config dict to a file"""
     
     if not name.endswith('.yaml'):
         name += ".yaml"

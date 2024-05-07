@@ -1,8 +1,6 @@
+"""Helper functions to bypass requirements for json serialization."""
 import types
 
-# don't want all types fully serialized as this is just for 
-#   debugging/logging. convert non-builtin types just to their
-#   type names
 
 def stringify_list(items: list) -> list:
     newitems = []

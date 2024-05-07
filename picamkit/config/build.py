@@ -3,6 +3,19 @@ import importlib
 
 
 def build(config: dict) -> dict:
+    """Process a configuration dict and create objects and make connections.
+
+    Recognises the following special keys in the dict:
+    
+        __target__   : the value is a python object to construct, passing any remaining
+                       key/value pairs to the object's constructor.
+        __instance__ : the value is the name of an existing object that is looked up 
+                       and replaced as the value
+        __enum__     : the value is the name of an enum that is used to replace the value.
+        pipeline*    : any top level key that starts with pipeline, is built in a special
+                       way with each object receiving a reference to the previous object
+                       in its constructor.
+    """    
     config = copy.deepcopy(config)
     instances = {}
     if isinstance(config, (list, tuple)):
