@@ -12,24 +12,24 @@
     <th>Python Code</th>
   </tr>
   <tr>
-    <td><code>
-      camera:
-        __target__: picamkit.camera.Camera
-        camera_id: {{ camera_id | default(0) }}
-        mode: {{ camera_mode | default(1) }}
-        vflip: false
-        hflip: false
-        preview: false
-    </code></td>
-    <td><code>
-      camera = picamkit.camera.Camera)
-        camera_id=0,
-        mode=1,
-        vflip=False,
-        hflip=False,
-        preview=False
-      )
-    </code></td>
+    <td><pre>
+camera:
+  __target__: picamkit.camera.Camera
+  camera_id: {{ camera_id | default(0) }}
+  mode: {{ camera_mode | default(1) }}
+  vflip: false
+  hflip: false
+  preview: false
+    </pre></td>
+    <td><pre>
+camera = picamkit.camera.Camera)
+  camera_id=0,
+  mode=1,
+  vflip=False,
+  hflip=False,
+  preview=False
+)
+    </pre></td>
   </tr>
 </table>
 
