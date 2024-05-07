@@ -92,7 +92,7 @@ pipeline:
     name1: rgb
     pipe2:
       __instance__: pipeline_noir
-    name2: roir
+    name2: noir
     grouped: true
   # - __target__: picamkit.ops.debug.dump
   - __target__: picamkit.ops.sink.save_item
