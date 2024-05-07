@@ -1,5 +1,7 @@
 # Simple Configuration
 
+This configuration defines a camera, configures the camera, and then captures some images. It's 
+the minimum needed to do something useful.
 
 ## Camera Definition
 
@@ -110,7 +112,18 @@ configure_cam = [
 </table>
 
 
-<!-- # the pipeline of generators
+## Capture Pipeline
+
+This final section builds the capture pipeline. This is a number of generators that are linked 
+to each other in the order specified in the configuration.
+
+<table>
+  <tr>
+    <th>Configuration</th>
+    <th>Python Code</th>
+  </tr>
+  <tr>
+    <td><pre>
 pipeline:
   - __target__: picamkit.ops.control.simple
     max_frames: {{ max_frames | default(10) }}
@@ -127,4 +140,89 @@ pipeline:
   - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
   - __target__: picamkit.ops.sink.save_rgb
-    outdir: {{ output_dir }} -->
+    outdir: {{ output_dir }}
+    </pre></td>
+    <td><pre>
+pipeline = picamkit.ops.control.simple(
+  max_frames=10
+)
+pipeline = picamkit.ops.camera.capture(
+  pipe=pipeline, 
+  camera=camera, 
+  arrays=['main], 
+  immediate=True
+)
+pipeline = picamkit.ops.imaging.resize(
+  pipe=pipeline,
+  width=1280,
+  height=720,
+  preserve_aspect=True
+)
+pipeline = picamkit.ops.sink.save_item(
+  pipe=pipeline,
+  outdir='local/1715125743'
+)
+pipeline = picamkit.ops.sink.save_rgb(
+  pipe=pipeline,
+  outdir='local/1715125743'
+)
+    </pre></td>
+  </tr>
+</table>
+
+## Running the Pipeline
+
+Once the pipeline is built, `ck-run` runs the pipeline with code as simple as this:
+
+    for item in pipeline:
+      pass
+
+The output from running this configuration looks like this:
+
+    $ ./ck-run configs/simple-capture.yaml 
+    Loading config
+    Building config
+    Setting white balance
+    Setting exposure
+    Building picamkit.ops.control.simple
+    - max_frames: 10
+    Building picamkit.ops.camera.capture
+    - arrays: ['main']
+    - immediate: True
+    Building picamkit.ops.imaging.resize
+    - image_key: main.image
+    - width: 1280
+    - height: 720
+    - preserve_aspect: True
+    Building picamkit.ops.sink.save_item
+    - outdir: local/1715125743
+    - prefix: img
+    - mdata_key: metadata
+    Building picamkit.ops.sink.save_rgb
+    - outdir: local/1715125743
+    - file_format: png
+    - image_key: main.image
+    - format_key: main.format
+    - prefix: img
+    Running
+    Saving local/1715125743/img-0000.json
+    Saving local/1715125743/img-0000-rgb.png
+    Saving local/1715125743/img-0001.json
+    Saving local/1715125743/img-0001-rgb.png
+    Saving local/1715125743/img-0002.json
+    Saving local/1715125743/img-0002-rgb.png
+    Saving local/1715125743/img-0003.json
+    Saving local/1715125743/img-0003-rgb.png
+    Saving local/1715125743/img-0004.json
+    Saving local/1715125743/img-0004-rgb.png
+    Saving local/1715125743/img-0005.json
+    Saving local/1715125743/img-0005-rgb.png
+    Saving local/1715125743/img-0006.json
+    Saving local/1715125743/img-0006-rgb.png
+    Saving local/1715125743/img-0007.json
+    Saving local/1715125743/img-0007-rgb.png
+    Saving local/1715125743/img-0008.json
+    Saving local/1715125743/img-0008-rgb.png
+    Saving local/1715125743/img-0009.json
+    Saving local/1715125743/img-0009-rgb.png
+
