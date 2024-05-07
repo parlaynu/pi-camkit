@@ -90,7 +90,7 @@ def test_notimmediate():
         assert duration > max_frames/fps
 
 
-def test_mainonly_async():
+def test_mainonly_nonblocking():
     with ckcam.Camera(camera_id=0, mode=1) as picam:
         ckcam.set_exposure(picam)
         ckcam.set_focus(picam, not_available_ok=True, wait=True)
@@ -98,7 +98,7 @@ def test_mainonly_async():
         fps = 10
         max_frames = 25
         pipe = control.simple(fps=fps, max_frames=max_frames)
-        pipe = cap.capture_async(pipe, picam)
+        pipe = cap.capture(pipe, picam, blocking=False)
         
         start = time.monotonic()
         for idx, item in enumerate(pipe):
@@ -109,7 +109,7 @@ def test_mainonly_async():
         assert duration == pytest.approx(max_frames/fps, abs=1.0/fps)
 
 
-def test_rawonly_async():
+def test_rawonly_nonblocking():
     with ckcam.Camera(camera_id=0, mode=1) as picam:
         ckcam.set_exposure(picam)
         ckcam.set_focus(picam, not_available_ok=True, wait=True)
@@ -117,7 +117,7 @@ def test_rawonly_async():
         fps = 10
         max_frames = 25
         pipe = control.simple(fps=fps, max_frames=max_frames)
-        pipe = cap.capture_async(pipe, picam, arrays=['raw'])
+        pipe = cap.capture(pipe, picam, arrays=['raw'], blocking=False)
         
         start = time.monotonic()
         for idx, item in enumerate(pipe):
@@ -128,7 +128,7 @@ def test_rawonly_async():
         assert duration == pytest.approx(max_frames/fps, abs=1.0/fps)
 
 
-def test_mainandraw_async():
+def test_mainandraw_nonblocking():
     with ckcam.Camera(camera_id=0, mode=1) as picam:
         ckcam.set_exposure(picam)
         ckcam.set_focus(picam, not_available_ok=True, wait=True)
@@ -136,7 +136,7 @@ def test_mainandraw_async():
         fps = 10
         max_frames = 25
         pipe = control.simple(fps=fps, max_frames=max_frames)
-        pipe = cap.capture_async(pipe, picam, arrays=['main', 'raw'])
+        pipe = cap.capture(pipe, picam, arrays=['main', 'raw'], blocking=False)
         
         start = time.monotonic()
         for idx, item in enumerate(pipe):

@@ -4,12 +4,17 @@ import threading
 import time
 
 
-# based on itertools.tee with the following differences:
-# - add a copy of the item to each deque rather than the same item
-# - return the generators in a list so the builder can mutate it
-# - safe for generators to be called from different threads
-
 def tee(pipe: Generator[dict, None, None], *, count: int, threaded: bool = False) -> Iterable[Generator[dict, None, None]]:
+    """Splits the incoming pipe into multiple outputs which can then be processed in parallel.
+    
+    See itertools.tee for details.
+    
+    The parameter 'count' specifies how many outputs to generate.
+    
+    If working in a threaded environment, you can set 'threaded' to True to offer a stronger
+    guarantee that the threads will behave in an orderly fashion.
+    """
+    
     print("Building picamkit.ops.utils.tee")
     print(f"- count: {count}")
 

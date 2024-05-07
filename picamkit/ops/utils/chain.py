@@ -7,6 +7,7 @@ def chain(
     pipe2: Generator[dict, None, None], 
     name2: str
 ) -> Generator[dict, None, None]:
+    """Chains two generators together - see itertools.chain."""
 
     print("Building picamkit.ops.utils.chain")
     print(f"- name1: {name1}")

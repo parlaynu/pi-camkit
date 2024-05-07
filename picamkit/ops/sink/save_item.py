@@ -11,6 +11,12 @@ def save_item(
     prefix: str = 'img', 
     mdata_key: str = 'metadata'
 ) -> Generator[dict, None, None]:
+    """Save image metadata to disk. Will generally have the same name as the image, but will be a json file.
+
+    The files are saved to 'outdir' with a file name that starts with 'prefix'.
+
+    The parameter 'mdata_key' is the dict item that has the metadata.
+    """
 
     print("Building picamkit.ops.sink.save_item")
     print(f"- outdir: {outdir}")

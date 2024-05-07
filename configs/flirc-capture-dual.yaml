@@ -69,7 +69,7 @@ pipeline_control:
 
 pipeline_rgb:
   - __instance__: pipeline_control
-  - __target__: picamkit.ops.camera.capture
+  - __target__: picamkit.ops.capture.capture
     camera:
       __instance__: camera_rgb
     arrays:
@@ -78,7 +78,7 @@ pipeline_rgb:
 
 pipeline_noir:
   - __instance__: pipeline_control
-  - __target__: picamkit.ops.camera.capture
+  - __target__: picamkit.ops.capture.capture
     camera:
       __instance__: camera_noir
     arrays:

@@ -18,6 +18,7 @@ def save_rgb(
     format_key: str = 'main.format', 
     prefix: str = 'img'
 ) -> Generator[dict, None, None]:
+    """Saves the main image to disk in the specified format."""
     
     print("Building picamkit.ops.sink.save_rgb")
     print(f"- outdir: {outdir}")

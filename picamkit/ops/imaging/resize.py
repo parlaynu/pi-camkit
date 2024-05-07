@@ -10,6 +10,14 @@ def resize(
     image_key: str = 'main.image', 
     preserve_aspect: bool = True
 ) -> Generator[dict, None, None]:
+    """Image processing operator that resizes the input image to the specified size.
+
+    The image is looked up in the dict using the 'image_key' parameter. It is split into
+    a list by the '.' and looked up recursively.
+
+    If 'preserve_aspect' is True, the aspect ratio of the image is preserved and pasted into
+    a black image of the requested size.
+    """
 
     print("Building picamkit.ops.imaging.resize")
     print(f"- image_key: {image_key}")
@@ -58,6 +66,11 @@ def scale(
     factor: float, 
     image_key: str = 'main.image'
 ) -> Generator[dict, None, None]:
+    """Image processing operator that scales the input image by the specified factor.
+
+    The image is looked up in the dict using the 'image_key' parameter. It is split into
+    a list by the '.' and looked up recursively.
+    """
 
     print("Building picamkit.ops.imaging.scale")
     print(f"- image_key: {image_key}")

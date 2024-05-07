@@ -9,6 +9,10 @@ def limit(
     max_frames: int = sys.maxsize, 
     max_seconds: float = sys.maxsize
 ) -> Generator[dict, None, None]:
+    """Enforces a max frame or time limit on the processing.
+
+    When either the frame limit or the time limit is exceeded, the loop terminates.
+    """
 
     print("Building picamkit.ops.utils.limit")
     if max_frames < sys.maxsize:

@@ -9,6 +9,12 @@ def worker(
     *, 
     qlen: int = 1
 ) -> Generator[dict, None, None]:
+    """Creates a worker thread to call the upstream pipeline and yield results in the calling thread.
+
+    Different parts of the pipeline can run in different threads. This is subject to the limitations
+    of the python interpreter, but it can help in some situations, for example to separate IO and compute
+    parts of the pipeline into different threads, or to run branched pipelines in parallel.
+    """
 
     print("Building picamkit.ops.utils.worker")
     print(f"- qlen: {qlen}")

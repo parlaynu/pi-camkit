@@ -3,6 +3,8 @@ import time
 
 
 def rate_limit(pipe: Generator[dict, None, None], fps: float) -> Generator[dict, None, None]:
+    """Limits the frames per second that the pipeline can loop."""
+    
     print("Building picamkit.ops.utils.rate_limit")
     print(f"- fps: {fps}")
     

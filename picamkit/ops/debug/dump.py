@@ -3,6 +3,8 @@ import numpy as np
 
 
 def dump(pipe: Generator[dict, None, None]) -> Generator[dict, None, None]:
+    """Dump the item dict contents to stdout."""
+    
     print("Building picamkit.ops.debug.dump")
 
     def gen():

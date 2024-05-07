@@ -12,6 +12,14 @@ def fs_reader(
     recursive: bool = False, 
     extensions: dict = {'.png', '.jpg', '.jpeg'}
 ) -> Generator[dict, None, None]:
+    """Read images from disk and yield to mimic the camera operation
+
+    When 'sort' is True, sort the directory contents before processing.
+
+    When 'recursive' is True, traverse into subdirectories.
+
+    Only files with extensions in the 'extensions' list are opened.
+    """
 
     # make sure the extensions are in the correct format
     exts = list(extensions)
@@ -32,6 +40,7 @@ def fs_reader(
     def gen():
         
         for idx, item in enumerate(_fs_reader(idir, sort=sort, recursive=recursive, extensions=extensions)):
+            # add the idx here at the top level to keep an accurate count
             item['idx'] = idx
             yield item
 

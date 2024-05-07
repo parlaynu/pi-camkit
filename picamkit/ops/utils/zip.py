@@ -10,6 +10,11 @@ def zip(
     *, 
     grouped: bool = False
 ) -> Generator[dict, None, None]:
+    """Rejoin to branches of a pipeline that have been separated using the 'tee' operator.
+
+    When 'grouped' is False, yield each input separatels. When True, group them together
+    into a list an yield the list.
+    """
 
     print("Building picamkit.ops.utils.zip")
     print(f"- name1: {name1}")

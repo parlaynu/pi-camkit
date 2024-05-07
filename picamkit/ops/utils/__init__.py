@@ -1,3 +1,5 @@
+"""General utility operators."""
+
 from .worker import worker
 from .warmup import warmup
 

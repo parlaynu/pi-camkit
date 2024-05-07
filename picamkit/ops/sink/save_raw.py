@@ -31,6 +31,13 @@ def save_raw(
     format_key: str = 'raw.format', 
     prefix: str = 'img'
 ) -> Generator[dict, None, None]:
+    """Save raw images to disk in a demosaiced PNG file. 
+
+    All formats are scaled up to reside in the top region of the 16bit word.
+
+    The only processing that is done is to subtract the sensor black levels and to
+    demosaic the image.
+    """
     
     print("Building picamkit.ops.sink.save_raw")
     print(f"- outdir: {outdir}")
@@ -93,6 +100,11 @@ def save_raw8(
     format_key: str = 'raw.format', 
     prefix: str = 'img'
 ) -> Generator[dict, None, None]:
+    """Save raw images to disk in an 8-bit PNG file. 
+
+    Some very basic processing is done to subtract black levels, apply an sRGB-like gamma
+    to the data and scale it to 0-255.
+    """
     
     print("Building picamkit.ops.sink.save_raw8")
     print(f"- outdir: {outdir}")

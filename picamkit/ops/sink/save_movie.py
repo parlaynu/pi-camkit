@@ -23,6 +23,11 @@ def save_movie(
     format_key: str = 'main.format',
     cleanup: bool = True
 ) -> Generator[dict, None, None] :
+    """Saves images as a movie file.
+
+    The images are first cached to local disk, and when there are 'images_per_movie' 
+    available, the movie file is created.
+    """
 
     print("Building picamkit.ops.sink.save_movie")
     print(f"- outdir: {outdir}")

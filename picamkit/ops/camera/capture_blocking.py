@@ -1,28 +1,19 @@
 from typing import Generator
 import time
-import numpy as np
 
 from picamera2 import Picamera2
 
+from .image_dtypes import image_dtypes
 
-image_dtypes = {
-    'RGB888': np.uint8,
-    'BGR888': np.uint8,
-    'SBGGR10': np.uint16,
-    'SBGGR12': np.uint16,
-    'SBGGR16': np.uint16,
-    'SGRBG16': np.uint16,
-    'SGBRG16': np.uint16,
-    'SRGGB16': np.uint16,
-}
 
-def capture(
+def capture_blocking(
     pipe: Generator[dict, None, None], 
     camera: Picamera2, 
     *, 
     arrays: list = ['main'],
     immediate: bool = True
 ) -> Generator[dict, None, None]:
+    """Implements the blocking capture."""
 
     
     print(f"Building picamkit.ops.camera.capture")

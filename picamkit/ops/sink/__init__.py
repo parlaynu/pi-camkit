@@ -1,3 +1,4 @@
+"""Operators to save images and metadata to disk."""
 from .save_item import save_item
 
 from .save_rgb import save_rgb

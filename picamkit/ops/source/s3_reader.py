@@ -23,6 +23,15 @@ def s3_reader(
     endpoint_url: str = None,
     extensions: dict = {'.png', '.jpg', '.jpeg'}
 ) -> Generator[dict, None, None]:
+    """Read images from an AWS S3 or compatible bucket.
+
+    if 'seekable' is True, the contents are downloaded to a temporary file before 
+    being yielded.
+
+    The other parameters offer a range of ways to specify how to authenticate and also
+    the possibility to connect to alternative providers such as Cloudflare R2. See the
+    AWS documentation for details.
+    """
 
     print(f"Building picamkit.ops.sources.s3_reader")
 
