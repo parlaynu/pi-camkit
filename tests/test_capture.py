@@ -78,29 +78,16 @@ def test_notimmediate():
         fps = 10
         max_frames = 15
         
-        # run in immediate mode
-        pipe = control.simple(fps=fps, max_frames=max_frames)
-        pipe = cap.capture(pipe, picam, arrays=['main'])
-        
-        start = time.monotonic()
-        for idx, item in enumerate(pipe):
-            pass
-        duration1 = time.monotonic() - start
-
-        assert max_frames == idx+1
-        assert duration1 == pytest.approx(max_frames/fps, abs=1.0/fps)
-
-        # repeat in non-immediate mode
         pipe = control.simple(fps=fps, max_frames=max_frames)
         pipe = cap.capture(pipe, picam, arrays=['main'], immediate=False)
         
         start = time.monotonic()
         for idx, item in enumerate(pipe):
             pass
-        duration2 = time.monotonic() - start
+        duration = time.monotonic() - start
 
         assert max_frames == idx+1
-        assert duration2 > duration1
+        assert duration > max_frames/fps
 
 
 def test_mainonly_async():

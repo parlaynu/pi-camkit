@@ -10,12 +10,13 @@ camera:
 
 # configure the camera
 configure_cam:
-  - __target__: picamkit.camera.set_exposure
-    camera:
-      __instance__: camera
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera
+  - __target__: picamkit.camera.set_exposure
+    camera:
+      __instance__: camera
+    wait: true
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera
@@ -24,8 +25,6 @@ configure_cam:
     camera:
       __instance__: camera
     outdir: {{ output_dir }}
-  - __target__: picamkit.utils.wait_for
-    seconds: 5.0
 
 
 # the pipeline of generators

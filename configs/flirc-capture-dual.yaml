@@ -18,18 +18,20 @@ camera_noir:
 
 # configure the cameras
 configure_rgb:
-  - __target__: picamkit.camera.set_exposure
-    camera:
-      __instance__: camera_rgb
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera_rgb
+  - __target__: picamkit.camera.set_exposure
+    camera:
+      __instance__: camera_rgb
+    wait: true
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera_rgb
     mode:
       __enum__: picamkit.camera.AfModeEnum.AUTO
     not_available_ok: true
+    wait: true
   - __target__: picamkit.utils.save_camera_configs
     camera:
       __instance__: camera_rgb
@@ -37,18 +39,20 @@ configure_rgb:
     prefix: cam-rgb
 
 configure_noir:
-  - __target__: picamkit.camera.set_exposure
-    camera:
-      __instance__: camera_noir
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera_noir
+  - __target__: picamkit.camera.set_exposure
+    camera:
+      __instance__: camera_noir
+    wait: true
   - __target__: picamkit.camera.set_focus
     camera:
       __instance__: camera_noir
     mode:
       __enum__: picamkit.camera.AfModeEnum.AUTO
     not_available_ok: true
+    wait: true
   - __target__: picamkit.utils.save_camera_configs
     camera:
       __instance__: camera_noir
@@ -61,6 +65,7 @@ pipeline_control:
   - __target__: picamkit.ops.control.flirc
   - __target__: picamkit.ops.utils.tee
     count: 2
+    threaded: true
 
 pipeline_noir:
   - __instance__: pipeline_control
@@ -90,7 +95,6 @@ pipeline:
       __instance__: pipeline_rgb
     name2: rgb
     grouped: true
-    threaded: true
   # - __target__: picamkit.ops.debug.dump
   - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
