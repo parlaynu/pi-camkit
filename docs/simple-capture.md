@@ -18,7 +18,7 @@ The variable `camera` can be referenced later in the configuration file with the
 <table>
   <tr>
     <th>Configuration</th>
-    <th>Python Code</th>
+    <th>Equivalent Python Code</th>
   </tr>
   <tr>
     <td><pre>
@@ -57,7 +57,7 @@ variables, it can also be overridden on the command line with a `output_dir=valu
 <table>
   <tr>
     <th>Configuration</th>
-    <th>Python Code</th>
+    <th>Equivalent Python Code</th>
   </tr>
   <tr>
     <td><pre>
@@ -120,7 +120,7 @@ to each other in the order specified in the configuration.
 <table>
   <tr>
     <th>Configuration</th>
-    <th>Python Code</th>
+    <th>Equivalent Python Code</th>
   </tr>
   <tr>
     <td><pre>
