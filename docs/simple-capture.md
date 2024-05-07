@@ -12,7 +12,7 @@
     <th>Python Code</th>
   </tr>
   <tr>
-    <td>
+    <td><code>
       camera:
         __target__: picamkit.camera.Camera
         camera_id: {{ camera_id | default(0) }}
@@ -20,8 +20,8 @@
         vflip: false
         hflip: false
         preview: false
-    </td>
-    <td>
+    </code></td>
+    <td><code>
       camera = picamkit.camera.Camera)
         camera_id=0,
         mode=1,
@@ -29,7 +29,7 @@
         hflip=False,
         preview=False
       )
-    </td>
+    </code></td>
   </tr>
 </table>
 
