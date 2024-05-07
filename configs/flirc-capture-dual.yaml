@@ -1,7 +1,7 @@
 # the cameras
 camera_rgb:
   __target__: picamkit.camera.Camera
-  camera_id: {{ camera_id | default(1) }}
+  camera_id: {{ camera_id | default(0) }}
   mode: {{ camera_mode | default(1) }}
   vflip: false
   hflip: false
@@ -9,7 +9,7 @@ camera_rgb:
 
 camera_noir:
   __target__: picamkit.camera.Camera
-  camera_id: {{ 1 - (camera_id | default(1) | int )}}
+  camera_id: {{ 1 - (camera_id | default(0) | int )}}
   mode: {{ camera_mode | default(1) }}
   vflip: false
   hflip: false
@@ -67,6 +67,15 @@ pipeline_control:
     count: 2
     threaded: true
 
+pipeline_rgb:
+  - __instance__: pipeline_control
+  - __target__: picamkit.ops.camera.capture
+    camera:
+      __instance__: camera_rgb
+    arrays:
+      - main
+  - __target__: picamkit.ops.utils.worker
+
 pipeline_noir:
   - __instance__: pipeline_control
   - __target__: picamkit.ops.camera.capture
@@ -76,24 +85,14 @@ pipeline_noir:
       - main
   - __target__: picamkit.ops.utils.worker
 
-pipeline_rgb:
-  - __instance__: pipeline_control
-  - __target__: picamkit.ops.camera.capture
-    camera:
-      __instance__: camera_rgb
-    arrays:
-      - main
-    immediate: true
-  - __target__: picamkit.ops.utils.worker
-
 pipeline:
   - __target__: picamkit.ops.utils.zip
     pipe1:
-      __instance__: pipeline_noir
-    name1: noir
-    pipe2:
       __instance__: pipeline_rgb
-    name2: rgb
+    name1: rgb
+    pipe2:
+      __instance__: pipeline_noir
+    name2: roir
     grouped: true
   # - __target__: picamkit.ops.debug.dump
   - __target__: picamkit.ops.sink.save_item
