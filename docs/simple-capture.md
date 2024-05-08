@@ -53,7 +53,7 @@ so you have a record of all the settings the images were captured with. The vari
 `output_dir` is automatically set by the `ck-run` application, defaulting to `local/<timestamp>`. 
 
 This can be overridded in either of two ways. In the first example, the ouput directory
-will be `../capture/<timestamp>`
+will be `../capture/<timestamp>`:
 
     $ ./ck-run -o ../capture configs/simple-capture.yaml
 
@@ -233,4 +233,65 @@ The output from running this configuration looks like this:
     Saving local/1715125743/img-0008-rgb.png
     Saving local/1715125743/img-0009.json
     Saving local/1715125743/img-0009-rgb.png
+
+
+The `json` files that are saved contain all the metadata from the image capture. These are saved
+by the operator `picamkit.ops.sink.save_item` included in the pipeline.
+An example is like this:
+
+    {
+      "idx": 0,
+      "main": {
+        "format": "RGB888",
+        "framesize": 8957952,
+        "size": [
+          2304,
+          1296
+        ],
+        "stride": 6912
+      },
+      "metadata": {
+        "AeLocked": true,
+        "AfPauseState": 0,
+        "AfState": 0,
+        "AnalogueGain": 3.029585838317871,
+        "ColourCorrectionMatrix": [
+          1.5383427143096924,
+          -0.3521742522716522,
+          -0.18616284430027008,
+          -0.3317224383354187,
+          1.6765234470367432,
+          -0.3447909653186798,
+          0.0037013564724475145,
+          -0.5590126514434814,
+          1.5553213357925415
+        ],
+        "ColourGains": [
+          1.7750877141952515,
+          2.0837767124176025
+        ],
+        "ColourTemperature": 4058,
+        "DigitalGain": 1.0024760961532593,
+        "ExposureTime": 59989,
+        "FocusFoM": 878,
+        "FrameDuration": 199995,
+        "LensPosition": 1.0,
+        "Lux": 179.4264373779297,
+        "ScalerCrop": [
+          0,
+          0,
+          4608,
+          2592
+        ],
+        "SensorBlackLevels": [
+          4096,
+          4096,
+          4096,
+          4096
+        ],
+        "SensorTemperature": 26.0,
+        "SensorTimestamp": 83126207467000
+      },
+      "stamp": 83126151379817
+    }
 
