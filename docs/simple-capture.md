@@ -1,4 +1,4 @@
-# Simple Configuration
+# Simple Capture Configuration
 
 This configuration defines a camera, configures the camera, and then captures some images. It's 
 the minimum needed to do something useful.
@@ -52,7 +52,7 @@ It finishes by saving all the camera configuration settings to files in the outp
 so you have a record of all the settings the images were captured with. The variable
 `output_dir` is automatically set by the `ck-run` application, defaulting to `local/<timestamp>`. 
 The top level location can be overridden with a a commandline flag to `ck-run` and as with other 
-variables, it can also be overridden on the command line with a `output_dir=value`.
+variables, it can also be overridden on the command line with an argument such as `output_dir=some_location`.
 
 <table>
   <tr>
