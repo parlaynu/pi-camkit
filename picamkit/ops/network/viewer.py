@@ -8,6 +8,9 @@ from PIL import Image
 
 def viewer(publish_url):
 
+    print("Building picamkit.ops.network.viewer")
+    print(f"- publish url: {publish_url}")
+
     context = zmq.Context()
     sub_sock = context.socket(zmq.SUB)
     sub_sock.set_hwm(2)

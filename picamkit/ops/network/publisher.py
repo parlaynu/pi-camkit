@@ -16,6 +16,8 @@ def publisher(
     local_listen: bool = False
 ) -> None:
 
+    print("Building picamkit.ops.network.publisher")
+
     image_keys = image_key.split('.')
     
     if local_listen:
@@ -25,7 +27,7 @@ def publisher(
     
     all_urls = _connect_urls(pub_url)
     for u in all_urls:
-        print(f"Publishing at {u}")
+        print(f"- listen url: {u}")
 
     context = zmq.Context()
     pub_sock = context.socket(zmq.PUB)
