@@ -4,19 +4,28 @@ This repository contains a toolkit for building custom camera capture tools for 
 configuration file to compose capture and processing pipelines. I built it because I got tired of
 writing very similar capture tools for slightly different situations.
 
-It uses Python's 'importlib' to build the objects as defined in the configuration file. All objects defined 
-at the top-level are stored as instances that can be referred to later in the configuration and passed
-to functions or constructors as a parameter. Any top-level item that starts with 'pipeline' is built differently
-with each oject in the pipeline expected to build a generator which is then passed into the following
-object as a parameter. More details are below.
+It uses Python's 'importlib' to build the objects as defined in a configuration file. It means a lot
+of boilerplate code can be written just once, such as:
 
-Now, while it does work and works well, it's not entirely robust. It is possible to define configurations
-that can't be built and the diagnostics can be a bit cryptic. Hopefully this will all improve as I
-use it more.
+* parsing command line and processing flags
+* saving expanded configuration file to the output location
+* saving camera configurations to the output location
+
+## Configuration
+
+The configuration file is where the capture and processing application is defined. There are a number of 
+examples in the [configs](configs) directory. For detailed examples of how the configurations are converted
+to code, two configurations are explained in detail in these documents:
+
+* [simple capture](docs/simple-capture.md)
+* [simple capture dual](docs/simple-capture-dual.md)
+
+After reading these you should have enough knowledge to read and understand all the example configurations
+and to write your own.
 
 ## Quickstart
 
-Once you have your RaspberryPi built and the cameras attached (see the RaspberryPi documentation), you
+Once you have your RaspberryPi built and the camera(s) attached (see the RaspberryPi documentation), you
 first install all the necessary dependencies:
 
     $ sudo ./requirements.sh
@@ -25,60 +34,14 @@ Once that is done, you can run the two convenience scripts from the top level di
 
     $ ./ck-run configs/simple-capture.yaml
 
+This runs a simple capture of 10 images.
+
 To install the library and console scripts, you can use `pip`:
 
     $ pip install --break-system-packages --user . 
 
-## Quick Example
-
-There are some example configurations in the `configs` directory. The simplest, named 
-[simple-capture.yaml](configs/simple-capture.yaml), has three main sections:
-
-| Section       | Description                         |
-| ------------- | ----------------------------------- |
-| camera        | define the camera and basic options |
-| configure_cam | settings for exposure, focus, etc.  |
-| pipeline      | the capture pipeline                |
-
-It saves the metadata from the camera for each image and the RGB image in PNG format.
-
-Running the capture session looks like this:
-
-    $ ck-run configs/simple-capture.yaml 
-    Loading config
-    Building config
-    Setting exposure
-    Setting white balance
-    Setting focus
-    Waiting for 5 seconds
-    Building picamkit.ops.control.simple
-    - max_frames: 10
-    Building picamkit.ops.camera.capture
-    - arrays: ['main']
-    - immediate: True
-    Building picamkit.ops.imaging.resize
-    - image_key: main.image
-    - width: 1280
-    - height: 720
-    - preserve_aspect: True
-    Building picamkit.ops.sink.save_item
-    - outdir: local/1713146422
-    - prefix: img
-    - mdata_key: metadata
-    Building picamkit.ops.sink.save_rgb
-    - outdir: local/1713146422
-    - file_format: png
-    - image_key: main.image
-    - format_key: main.format
-    - prefix: img
-    Running
-    Saving local/1713146422/img-0000.json
-    Saving local/1713146422/img-0000-rgb.png
-    .
-    .
-    Saving local/1713146422/img-0009.json
-    Saving local/1713146422/img-0009-rgb.png
-
+Once this is done, the scripts `ck-run` and `ck-caminfo` should be in your executable path and the
+`picamkit` library in your python library path.
 
 ## Operation Overview
 
@@ -105,13 +68,16 @@ You can pass any template variable into the template expansion using this mechan
 actually have any useful command line flags (other than a help flag), but relies soley on this mechanism to
 customise a capture pipeline defined in a template configuration file.
 
-There are three special configuration keys that the system knows about - `__target__`, `__instance__` and any top level
+There are four special configuration keys that the system knows about - `__target__`, `__enum__`, `__instance__` and any top level
 key that begins with `pipeline`.
 
 The `__target__` key is used to define an object to instantiate, or more generally, a function to call. This could
 be a constructor for a class, or simply a function that returns the correct type. The class or function needs
 to be accessible to the python interpreter in your runtime environment - it's up to you to make sure this is
 setup correctly.
+
+The `__enum__` key is similar to `__target__` but instead of creating the object with a callable, it has the
+logic to create an enum.
 
 The `__instance__` key is used to reference previously instantiated `__target__`'s. The objects are instantiated in the
 order in which they appear in the configuration file. For example, in the [simple-capture.yaml](configs/simple-capture.yaml),
@@ -123,24 +89,4 @@ return a generator and this generator is passed in to the next function as a par
 
 The item with the key that is just `pipeline` is the pipeline that `ck-run` runs. It does this just by iterating over
 the generator until it ends.
-
-## Advanced Pipelines
-
-Most of the sample configs are just single pipelines and simple to follow. The two pipelines 
-[flirc-capture-dual.yaml](configs/flirc-capture-dual.yaml) and [timelapse-stills-dual.yaml](configs/timelapse-stills-dual.yaml)
-show more advanced capabilities:
-
-* splitting the pipeline into smaller sections and chaining them together
-* capturing from two cameras on a RaspberryPi5
-* running two branches of the pipeline in parallel in their own threads
-* mergine the pipelines back together
-
-Chaining pipeline segments together is achieved using the `__instance__` keyword as described earlier.
-The other features are provided with some operators in the toolkit as shown in the table below:
-
-| Feature                | Operator                                                  |
-| ---------------------- | --------------------------------------------------------- |
-| Splitting the Pipeline | [picamkit.ops.utils.tee](picamkit/ops/utils/tee.py)       |
-| Joining two Pipelines  | [picamkit.ops.utils.zip](picamkit/ops/utils/zip.py)   |
-| Running in own Thread  | [picamkit.ops.utils.worker](picamkit/ops/utils/worker.py) |
 
