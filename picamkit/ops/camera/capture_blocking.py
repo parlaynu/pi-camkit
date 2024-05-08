@@ -27,6 +27,9 @@ def capture_blocking(
             item['idx'] = item.get('idx', idx)
         
             # capture the image
+            #   if immediate is False, check the metadata to make sure that the capture started after 
+            #   the request was made. See the camera documentation for details of the calculation 
+            #   below - section '6.4.1. Capturing Requests at Specific Times'.
             item['stamp'] = stamp = item.get('stamp', time.monotonic_ns())
             while True:
                 images, metadata = camera.capture_arrays(arrays, wait=True)
