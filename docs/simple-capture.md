@@ -51,8 +51,16 @@ camera itself.
 It finishes by saving all the camera configuration settings to files in the output directory 
 so you have a record of all the settings the images were captured with. The variable
 `output_dir` is automatically set by the `ck-run` application, defaulting to `local/<timestamp>`. 
-The top level location can be overridden with a a commandline flag to `ck-run` and as with other 
-variables, it can also be overridden on the command line with an argument such as `output_dir=some_location`.
+
+This can be overridded in either of two ways. In the first example, the ouput directory
+will be `../capture/<timestamp>`
+
+    $ ./ck-run -o ../capture configs/simple-capture.yaml
+
+In this example, the ouput directory will be `../capture`:
+
+    $ ./ck-run configs/simple-capture.yaml output_dir=../capture
+
 
 <table>
   <tr>
