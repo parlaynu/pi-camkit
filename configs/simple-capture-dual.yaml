@@ -21,6 +21,8 @@ configure_rgb:
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera_rgb
+    mode:
+      __enum__: picamkit.camera.AwbModeEnum.AUTO
   - __target__: picamkit.camera.set_exposure
     camera:
       __instance__: camera_rgb
@@ -42,6 +44,8 @@ configure_noir:
   - __target__: picamkit.camera.set_whitebalance
     camera:
       __instance__: camera_noir
+    mode:
+      __enum__: picamkit.camera.AwbModeEnum.AUTO
   - __target__: picamkit.camera.set_exposure
     camera:
       __instance__: camera_noir
@@ -63,22 +67,11 @@ configure_noir:
 # the pipeline of generators
 pipeline_control:
   - __target__: picamkit.ops.control.simple
-    fps: {{ 1.0 / (timelapse_seconds | default(60) | int) }}
-    max_frames: 10
+    max_frames: {{ max_frames | default(10) }}
   - __target__: picamkit.ops.utils.tee
     count: 2
     threaded: true
   
-pipeline_noir:
-  - __instance__: pipeline_control
-  - __target__: picamkit.ops.camera.capture
-    camera:
-      __instance__: camera_noir
-    arrays:
-      - main
-      - raw
-  - __target__: picamkit.ops.utils.worker
-
 pipeline_rgb:
   - __instance__: pipeline_control
   - __target__: picamkit.ops.camera.capture
@@ -89,19 +82,27 @@ pipeline_rgb:
       - raw
   - __target__: picamkit.ops.utils.worker
 
+pipeline_noir:
+  - __instance__: pipeline_control
+  - __target__: picamkit.ops.camera.capture
+    camera:
+      __instance__: camera_noir
+    arrays:
+      - main
+      - raw
+  - __target__: picamkit.ops.utils.worker
+
 pipeline:
   - __target__: picamkit.ops.utils.zip
     pipe1:
-      __instance__: pipeline_noir
-    name1: noir
-    pipe2:
       __instance__: pipeline_rgb
-    name2: rgb
-    grouped: true
+    name1: rgb
+    pipe2:
+      __instance__: pipeline_noir
+    name2: noir
   - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
   - __target__: picamkit.ops.sink.save_rgb
     outdir: {{ output_dir }}
   - __target__: picamkit.ops.sink.save_raw
     outdir: {{ output_dir }}
-
