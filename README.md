@@ -94,3 +94,17 @@ return a generator and this generator is passed in to the next function as a par
 The item with the key that is just `pipeline` is the pipeline that `ck-run` runs. It does this just by iterating over
 the generator until it ends.
 
+## Tests
+
+There is a reasonable set of tests in the [tests](tests) directory. You can run them with the `run.sh` script:
+
+    $ ./run.sh
+
+I've have run them on these combination of systems:
+
+| Hardware    | Operating System | Cameras            |
+| ----------- | ---------------- | ------------------ |
+| Pi 5B v1.0  | bookworm 64bit   | RGB v3 and NOIR v3 |
+] Pi 4B v1.4  | bookworm 64bit   | HQ Camera          |
+| Pi 3B+ v1.3 |bullseye 32bit    | RGB v2             |
+
