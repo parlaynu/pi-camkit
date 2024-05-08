@@ -23,21 +23,29 @@ def viewer(publish_url):
         while True:
             mask = sub_sock.poll(100)
             if mask != 0:
+                # receive the multipart message
                 idx, data = sub_sock.recv_multipart()
+                
+                # decode and display the image
                 jpeg = io.BytesIO(data)
                 image = np.array(Image.open(jpeg))
                 cv2.imshow('window', image)
                 
+                # construct an item from the information available
                 item = {
                     'idx': idx,
                     'main': {
                         'image': image
                     }
                 }
+                
+                # pass it on
                 yield item
 
+            # check for a quit key
             key = cv2.pollKey()
             if key == ord('q') or key == ord('x'):
                 break
 
     return gen()
+

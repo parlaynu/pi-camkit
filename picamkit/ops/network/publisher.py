@@ -44,12 +44,13 @@ def publisher(
             for key in image_keys:
                 image = image[key]
         
-            # encode it as jpeg to send
+            # encode the image as a jpeg
             image = Image.fromarray(image)
             jpeg = io.BytesIO()
             image.save(jpeg, format='jpeg', quality=95)
             jpeg.seek(0, io.SEEK_SET)
-                
+            
+            # publish the jpeg data
             pub_sock.send_multipart([idx, jpeg.getvalue()], copy=False)
             
             yield item
