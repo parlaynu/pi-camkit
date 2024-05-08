@@ -1,5 +1,5 @@
 # the viewer
-viewer:
-  __target__: picamkit.ops.network.viewer
-  pub_url: {{ publish_url }}
+pipeline:
+  - __target__: picamkit.ops.network.viewer
+    publish_url: {{ publish_url }}
 

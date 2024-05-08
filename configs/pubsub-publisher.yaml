@@ -35,7 +35,7 @@ configure_cam:
 
 
 # the pipeline of generators
-pipeline_capture:
+pipeline:
   - __target__: picamkit.ops.control.simple
     max_frames: {{ max_frames | default(1000) }}
   - __target__: picamkit.ops.camera.capture
@@ -44,20 +44,9 @@ pipeline_capture:
     arrays:
       - main
     immediate: true
-  - __target__: picamkit.ops.utils.tee
-    count: 2
-    threaded: true
-
-
-pipeline_publisher:
-  - __instance__: pipeline_capture
   - __target__: picamkit.ops.imaging.resize
     width: 1024
     height: 576
     preserve_aspect: true
   - __target__: picamkit.ops.network.publisher
-
-
-pipeline:
-  - __instance__: pipeline_capture
 

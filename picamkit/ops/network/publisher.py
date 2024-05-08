@@ -1,15 +1,11 @@
 from typing import Generator
-import threading
 import socket
 import psutil
 import re
 import io
-import json
 
 import zmq
 from PIL import Image
-
-from .common import MessageTags
 
 
 def publisher(
@@ -19,18 +15,6 @@ def publisher(
     image_key: str = 'main.image', 
     local_listen: bool = False
 ) -> None:
-
-    kwargs = {
-        'pipe': pipe,
-        'port': port,
-        'image_key': image_key,
-        'local_listen': local_listen
-    }
-    worker = threading.Thread(target=_publisher, kwargs=kwargs)
-    worker.start()
-
-
-def _publisher(pipe, port, image_key, local_listen):
 
     image_keys = image_key.split('.')
     
@@ -47,33 +31,28 @@ def _publisher(pipe, port, image_key, local_listen):
     pub_sock = context.socket(zmq.PUB)
     pub_sock.set_hwm(2)
     pub_sock.bind(pub_url)
-
-    for item in pipe:
-        idx = item['idx']
-        idx = f"{idx}".encode('utf-8')
-
-        # create a clean copy of the metadata
-        metadata = item['metadata'].copy()
-        for k in list(metadata.keys()):
-            if k.endswith('StatsOutput'):
-                del metadata[k]
+    
+    def gen():
+        for item in pipe:
+            idx = item['idx']
+            idx = f"{idx}".encode('utf-8')
+            
+            # get the image data
+            image = item
+            for key in image_keys:
+                image = image[key]
         
-        # send the metadata
-        metajs = json.dumps(metadata, separators=(',',':'))
-        pub_sock.send_multipart([MessageTags.METADATA, idx, metajs.encode('utf-8')], copy=False)
-
-        # send the jpeg image
-        image = item
-        for key in image_keys:
-            image = image[key]
-        
-        image = Image.fromarray(image)
-        
-        jpeg = io.BytesIO()
-        image.save(jpeg, format='jpeg', quality=95)
-        jpeg.seek(0, io.SEEK_SET)
+            # encode it as jpeg to send
+            image = Image.fromarray(image)
+            jpeg = io.BytesIO()
+            image.save(jpeg, format='jpeg', quality=95)
+            jpeg.seek(0, io.SEEK_SET)
                 
-        pub_sock.send_multipart([MessageTags.JPEGIMG, idx, jpeg.getvalue()], copy=False)
+            pub_sock.send_multipart([idx, jpeg.getvalue()], copy=False)
+            
+            yield item
+    
+    return gen()
 
 
 def _connect_urls(listen_url):
