@@ -12,6 +12,7 @@ import picamkit.config as config
 
 def run():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
     parser.add_argument('-o', '--output', help='the root of the output directory', type=str, default='local')
     parser.add_argument('config', help='the configuration file to load', type=str)
     parser.add_argument('overrides', help='key=value configuration overrides', nargs='*', type=str)
@@ -43,7 +44,9 @@ def run():
 
     # run the pipeline
     print("Running")
-    pipe = built['pipeline']
-    for item in pipe:
-        pass
+    if pipe := built.get('pipeline', None):
+        for idx, item in enumerate(pipe):
+            if args.verbose:
+                print(f"Item {idx:04d}")
+            pass
 

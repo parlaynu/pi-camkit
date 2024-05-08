@@ -1,6 +1,9 @@
 import os
 import json
-from picamera2 import Picamera2
+try:
+    from picamera2 import Picamera2
+except:
+    Picamera2 = None
 
 from .stringify import stringify_dict
 

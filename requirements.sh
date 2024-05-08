@@ -9,5 +9,8 @@ apt install -y python3-evdev
 # for aws s3 as image source
 apt install -y python3-boto3 awscli
 
+# for the network operators
+apt install -y python3-zmq python3-pil
+
 # for testing
-apt install -y python3-pytest python3-pil
+apt install -y python3-pytest
