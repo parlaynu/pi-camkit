@@ -2,29 +2,48 @@ from typing import Generator
 import numpy as np
 
 
-def dump(pipe: Generator[dict, None, None]) -> Generator[dict, None, None]:
-    """Dump the item dict contents to stdout."""
+def dump(
+    pipe: Generator[dict, None, None],
+    *,
+    key='all',
+    interval=1,
+) -> Generator[dict, None, None]:
+    """Dump the item dict contents to stdout.
+    
+    If 'key' is all, dump the full dict, else just the sub dict.
+    
+    Only dump the dict every 'interval' loops.
+    """
     
     print("Building picamkit.ops.debug.dump")
 
     def gen():
-        for idx, item in enumerate(pipe):
+        for idx, items in enumerate(pipe):
+            if idx % interval != 0:
+                yield items
+                continue
+            
             print(f"Item {idx:03d}")
-        
-            if isinstance(item, dict):
-                _dump_dict(item)
-            else:
-                for i in item:
+            
+            if not isinstance(items, list):
+                items = [items]
+            
+            for iidx, item in enumerate(items):
+                if iidx > 0:
                     print("  -------")
-                    _dump_dict(i)
+                
+                _dump_dict(item if key == 'all' else item[key])
 
-            yield item
+            yield items
 
     return gen()
 
 
 def _dump_dict(item: dict, indent: str = "  ") -> None:
     for k in sorted(item.keys()):
+        if k.endswith('StatsOutput'):
+            continue
+        
         v = item[k]
         
         if isinstance(v, (str, int, float)):

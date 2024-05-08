@@ -49,6 +49,9 @@ pipeline:
     width: 1280
     height: 720
     preserve_aspect: true
+  - __target__: picamkit.ops.debug.dump
+    key: metadata
+    interval: {{ (max_frames | default(10) | int ) - 1 }}
   - __target__: picamkit.ops.sink.save_item
     outdir: {{ output_dir }}
   - __target__: picamkit.ops.sink.save_rgb
