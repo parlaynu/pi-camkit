@@ -10,6 +10,10 @@ of boilerplate code can be written just once, such as:
 * parsing command line and processing flags
 * saving expanded configuration file to the output location
 * saving camera configurations to the output location
+* saving complete image metadata with the images
+
+Saving all this information means you should have everything that's needed for complex postprocessing
+of the captured images.
 
 ## Configuration
 
