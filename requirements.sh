@@ -10,7 +10,7 @@ apt install -y python3-evdev
 apt install -y python3-boto3 awscli
 
 # for the network operators
-apt install -y python3-zmq python3-pil
+apt install -y python3-zmq python3-pil python3-psutil
 
 # for testing
 apt install -y python3-pytest
