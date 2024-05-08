@@ -47,6 +47,7 @@ def run():
     if pipe := built.get('pipeline', None):
         for idx, item in enumerate(pipe):
             if args.verbose:
+                idx = int(item.get('idx', idx))
                 print(f"Item {idx:04d}")
             pass
 
