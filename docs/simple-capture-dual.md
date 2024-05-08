@@ -114,7 +114,7 @@ configure_rgb = [
   ),
   picamkit.utils.save_camera_configs(
     camera=camera_rgb,
-    outdir='local/1715125743'
+    outdir='local/1715130814'
   )
 ]
     </pre></td>
@@ -164,7 +164,7 @@ configure_noir = [
   ),
   picamkit.utils.save_camera_configs(
     camera=camera_noir,
-    outdir='local/1715125743'
+    outdir='local/1715130814'
   )
 ]
     </pre></td>
@@ -178,6 +178,9 @@ This pipeline section is substantially more complicated than the simple-capture 
 as it needs to be split into several smaller pipelines and then linked together using the
 `__instance__` keyword.
 
+The two branches `pipeline_rgb` and `pipeline_noir` both run in their own threads which
+are created with the `picamkit.ops.utils.worker` generator object.
+s
 <table>
   <tr>
     <th>Configuration</th>
@@ -267,7 +270,6 @@ pipeline:
     outdir: {{ output_dir }}
   - __target__: picamkit.ops.sink.save_raw
     outdir: {{ output_dir }}
-
     </pre></td>
     <td><pre>
 pipeline = picamkit.ops.utils.zip(
