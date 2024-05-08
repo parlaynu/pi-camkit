@@ -106,5 +106,5 @@ I've have run them on these combination of systems:
 | ----------- | ---------------- | ------------------ |
 | Pi 5B v1.0  | bookworm 64bit   | RGB v3 and NOIR v3 |
 ] Pi 4B v1.4  | bookworm 64bit   | HQ Camera          |
-| Pi 3B+ v1.3 |bullseye 32bit    | RGB v2             |
+| Pi 3B+ v1.3 | bullseye 32bit   | RGB v2             |
 
