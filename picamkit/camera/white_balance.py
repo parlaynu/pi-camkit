@@ -5,18 +5,20 @@ from libcamera import controls
 from picamera2 import Picamera2
 
 
-AwbModeEnum = IntEnum('AwbMode', ['AUTO', 'TUNGSTEN', 'FLUORESCENT', 'INDOOR', 'DAYLIGHT', 'CLOUDY', 'MANUAL'])
-
+AwbModeEnum = IntEnum('AwbMode', ['AUTO', 'INCANDESCENT', 'TUNGSTEN', 'FLUORESCENT', 'INDOOR', 'DAYLIGHT', 'CLOUDY', 'CUSTOM', 'MANUAL'])
 
 _awb_modes = {
     AwbModeEnum.AUTO: controls.AwbModeEnum.Auto,
+    AwbModeEnum.INCANDESCENT: controls.AwbModeEnum.Incandescent,
     AwbModeEnum.TUNGSTEN: controls.AwbModeEnum.Tungsten,
     AwbModeEnum.FLUORESCENT: controls.AwbModeEnum.Fluorescent,
     AwbModeEnum.INDOOR: controls.AwbModeEnum.Indoor,
     AwbModeEnum.DAYLIGHT: controls.AwbModeEnum.Daylight,
-    AwbModeEnum.CLOUDY: controls.AwbModeEnum.Cloudy
+    AwbModeEnum.CLOUDY: controls.AwbModeEnum.Cloudy,
+    AwbModeEnum.CUSTOM: controls.AwbModeEnum.Custom
 }
 
+# imx219_noir tuning file
 
 def set_whitebalance(
     camera: Picamera2, 
