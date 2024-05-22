@@ -14,7 +14,8 @@ def Camera(
     hflip: bool = False, 
     preview: bool = False, 
     min_frameduration: int = 0, 
-    initial_controls: dict = {}
+    initial_controls: dict = {},
+    tuning_file: str = None
 ) -> Picamera2:
     """Build a Picamera2 object and apply initial configuration and controls.
 
@@ -42,8 +43,11 @@ def Camera(
         be found in the Picamera2 official documentation.
     """
 
+    # check for tuning file override
+    tuning = None if tuning_file is None else Picamera2.load_tuning_file(tuning_file)
+
     # create the camera object
-    cam = Picamera2(camera_id)
+    cam = Picamera2(camera_id, tuning=tuning)
 
     # the sensor format information
     sensor_mode = cam.sensor_modes[mode]
