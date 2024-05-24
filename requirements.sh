@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # core packages
-apt install -y python3-pip python3-numpy python3-opencv python3-jinja2 python3-ruamel.yaml
+apt install -y python3-pip python3-libcamera python3-picamera2 python3-numpy python3-opencv python3-jinja2 python3-ruamel.yaml
 
 # for flirc controller
 apt install -y python3-evdev
