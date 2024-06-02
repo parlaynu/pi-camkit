@@ -53,7 +53,10 @@ def save_item(
                             del vv[k]
         
                 # save the item
-                if name := item.get('name', None):
+                if colour := item.get('colour', None):
+                    red, green, blue = colour['red'], colour['green'], colour['blue']
+                    item_path = os.path.join(outdir, f"{prefix}-{idx:04d}-r{red:03d}-g{green:03d}-b{blue:03d}.json")
+                elif name := item.get('name', None):
                     item_path = os.path.join(outdir, f"{prefix}-{idx:04d}-{name}.json")
                 else:
                     item_path = os.path.join(outdir, f"{prefix}-{idx:04d}.json")

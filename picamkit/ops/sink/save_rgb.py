@@ -53,7 +53,10 @@ def save_rgb(
                 if image_format != 'RGB888':
                     image = cv2.cvtColor(image, cv2.RGB2BGR)
 
-                if name := item.get('name', None):
+                if colour := item.get('colour', None):
+                    red, green, blue = colour['red'], colour['green'], colour['blue']
+                    img_path = os.path.join(outdir, f"{prefix}-{idx:04d}-r{red:03d}-g{green:03d}-b{blue:03d}.{file_format}")
+                elif name := item.get('name', None):
                     img_path = os.path.join(outdir, f"{prefix}-{idx:04d}-{name}.{file_format}")
                 else:
                     img_path = os.path.join(outdir, f"{prefix}-{idx:04d}-rgb.{file_format}")
