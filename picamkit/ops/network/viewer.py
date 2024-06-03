@@ -31,6 +31,9 @@ def viewer(publish_url):
                 image = np.array(Image.open(jpeg))
                 cv2.imshow('window', image)
                 
+                # means = np.mean(image, (0, 1))
+                # print(means)
+                
                 # construct an item from the information available
                 item = {
                     'idx': idx,

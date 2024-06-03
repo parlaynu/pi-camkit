@@ -6,6 +6,7 @@ import io
 
 import zmq
 from PIL import Image
+import numpy as np
 
 
 def publisher(
@@ -43,7 +44,10 @@ def publisher(
             image = item
             for key in image_keys:
                 image = image[key]
-        
+
+            # means = np.mean(image, axis=(0,1))
+            # print(means)
+
             # encode the image as a jpeg
             image = Image.fromarray(image)
             jpeg = io.BytesIO()
