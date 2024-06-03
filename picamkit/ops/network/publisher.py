@@ -14,6 +14,7 @@ def publisher(
     *, 
     port: int = 8090,
     image_key: str = 'main.image', 
+    image_format: str = 'jpeg',
     local_listen: bool = False
 ) -> None:
 
@@ -51,7 +52,7 @@ def publisher(
             # encode the image as a jpeg
             image = Image.fromarray(image)
             jpeg = io.BytesIO()
-            image.save(jpeg, format='jpeg', quality=95)
+            image.save(jpeg, format=image_format, quality=95)
             jpeg.seek(0, io.SEEK_SET)
             
             # publish the jpeg data
