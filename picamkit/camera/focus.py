@@ -41,10 +41,12 @@ def set_focus(
     it is '2'.
     """
 
-    # check to make sure the camera supports autofocus
+
+    # check to make sure the camera supports focus
     if not_available_ok:
         mdata = camera.capture_metadata()
-        if 'AfMode' not in mdata:
+        can_focus = mdata.get('AfState', False) or mdata.get('AfMode', False)
+        if can_focus == False:
             return True
 
     # now try and focus
@@ -73,9 +75,9 @@ def set_focus(
         if mode == AfModeEnum.MANUAL:
             time.sleep(0.5)
         else:
-            for i in range(10):
+            for i in range(20):
                 mdata = camera.capture_metadata()
-                if mdata['AfState'] == 2:
+                if mdata.get('AfState', -1) == 2:
                     print(f"- Lens Position: {mdata['LensPosition']}")
                     print(f"- Focus FoM: {mdata['FocusFoM']}")
                     break
