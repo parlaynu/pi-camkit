@@ -116,6 +116,8 @@ def save_raw8(
 
     image_keys = image_key.split('.')
     format_keys = format_key.split('.')
+    
+    scale = 255.0 / np.power(65535, 1.0/2.2)
 
     def gen():
         for items in pipe:
@@ -152,7 +154,7 @@ def save_raw8(
                 image = cv2.demosaicing(image.astype(np.uint16), bayer_code)
 
                 # apply the gamma encoding and convert to 8bit range
-                image = np.power(image, 1.0/2.2) / np.power(65535, 1.0/2.2) * 255
+                image = np.power(image, 1.0/2.2) * scale
                 image = image.astype(np.uint8)
 
                 # save the image
