@@ -8,7 +8,8 @@ def resize(
     width: int, 
     height: int, 
     image_key: str = 'main.image', 
-    preserve_aspect: bool = True
+    preserve_aspect: bool = True,
+    pad: bool = True
 ) -> Generator[dict, None, None]:
     """Image processing operator that resizes the input image to the specified size.
 
@@ -45,7 +46,7 @@ def resize(
             image = cv2.resize(image, None, fx=fx, fy=fy)
 
             iheight, iwidth, _ = image.shape
-            if iheight < height or iwidth < width:
+            if pad and (iheight < height or iwidth < width):
                 top = int((height - iheight)/2)
                 bottom = height - iheight - top
                 left = int((width - iwidth)/2)
