@@ -1,9 +1,9 @@
-from typing import Generator
+from typing import Iterable, Generator
 import cv2
 
 
 def resize(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     *, 
     width: int, 
     height: int, 
@@ -61,7 +61,7 @@ def resize(
 
 
 def scale(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     *, 
     factor: float, 
     image_key: str = 'main.image'
