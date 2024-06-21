@@ -1,8 +1,8 @@
-from typing import Iterator, Generator
+from typing import Iterable, Generator
 
 
 def centre_crop(
-    pipe: Iterator[dict],
+    pipe: Iterable[dict],
     *, 
     factor: float, 
     image_key: str = 'main.image'

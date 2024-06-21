@@ -1,11 +1,11 @@
-from typing import Generator
+from typing import Iterable, Generator
 import sys
 import threading
 import queue
 
 
 def worker(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     *, 
     qlen: int = 1
 ) -> Generator[dict, None, None]:

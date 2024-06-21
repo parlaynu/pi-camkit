@@ -1,10 +1,10 @@
-from typing import Generator
+from typing import Iterable, Generator
 
 
 def chain(
-    pipe1: Generator[dict, None, None], 
+    pipe1: Iterable[dict], 
     name1: str, 
-    pipe2: Generator[dict, None, None], 
+    pipe2: Iterable[dict], 
     name2: str
 ) -> Generator[dict, None, None]:
     """Chains two generators together - see itertools.chain."""

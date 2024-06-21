@@ -1,10 +1,10 @@
-from typing import Generator
+from typing import Iterable, Generator
 import time
 import sys
 
 
 def limit(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     *, 
     max_frames: int = sys.maxsize, 
     max_seconds: float = sys.maxsize

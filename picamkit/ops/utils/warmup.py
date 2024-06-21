@@ -1,9 +1,9 @@
-from typing import Generator
+from typing import Iterable, Generator
 import time
 
 
 def warmup(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     *, 
     frames: int = 0, 
     seconds: float = 0

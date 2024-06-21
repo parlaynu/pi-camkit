@@ -1,12 +1,12 @@
-from typing import Generator
+from typing import Iterable, Generator
 import builtins
 
 
 def zip(
-    pipe1: Generator[dict, None, None], 
-    name1: str, 
-    pipe2: Generator[dict, None, None], 
-    name2: str, 
+    pipe1: Iterable[dict],
+    name1: str,
+    pipe2: Iterable[dict],
+    name2: str,
     *, 
     grouped: bool = False
 ) -> Generator[dict, None, None]:

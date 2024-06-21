@@ -1,8 +1,8 @@
-from typing import Generator
+from typing import Iterable, Generator
 import time
 
 
-def rate_limit(pipe: Generator[dict, None, None], fps: float) -> Generator[dict, None, None]:
+def rate_limit(pipe: Iterable[dict], fps: float) -> Generator[dict, None, None]:
     """Limits the frames per second that the pipeline can loop."""
     
     print("Building picamkit.ops.utils.rate_limit")
