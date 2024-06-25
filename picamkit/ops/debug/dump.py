@@ -1,4 +1,5 @@
 from typing import Generator
+import time
 import numpy as np
 
 
@@ -6,7 +7,8 @@ def dump(
     pipe: Generator[dict, None, None],
     *,
     key='all',
-    interval=1,
+    interval=10,
+    drop=False
 ) -> Generator[dict, None, None]:
     """Dump the item dict contents to stdout.
     
@@ -18,23 +20,21 @@ def dump(
     print("Building picamkit.ops.debug.dump")
 
     def gen():
+        start = time.monotonic()
         for idx, items in enumerate(pipe):
-            if idx % interval != 0:
-                yield items
+            if drop:
+                time.sleep(interval)
+
+            yield items
+            
+            duration = time.monotonic() - start
+            if duration < interval:
                 continue
             
             print(f"Item {idx:03d}")
             
-            if not isinstance(items, list):
-                items = [items]
-            
-            for iidx, item in enumerate(items):
-                if iidx > 0:
-                    print("  -------")
-                
-                _dump_dict(item if key == 'all' else item[key])
-
-            yield items
+            item = items[0] if isinstance(items, list) else items
+            _dump_dict(item if key == 'all' else item[key])
 
     return gen()
 
