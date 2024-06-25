@@ -7,6 +7,7 @@ camera:
   hflip: false
   preview: true
   tuning_file: {{ tuning_file | default('imx219_noir.json') }}
+  min_frameduration: 33333
 
 
 # configure the camera
