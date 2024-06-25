@@ -107,7 +107,7 @@ def Camera(
 
     # start the camera
     if preview:
-        cam.start_preview(Preview.DRM, width=preview_size[0], height=preview_sizep[1])
+        cam.start_preview(Preview.DRM, width=preview_size[0], height=preview_size[1])
     cam.start()
     
     # apply any additional controls to the camera

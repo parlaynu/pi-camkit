@@ -2,7 +2,7 @@ import pytest
 import picamkit.ops.utils as utils
 
 
-@pytest.mark.parametrize('limit', [(1), (5), (20)])
+@pytest.mark.parametrize('limit', [(1), (5), (10), (20)])
 def test_LimitIsEnforced(limit):
     
     seq = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
