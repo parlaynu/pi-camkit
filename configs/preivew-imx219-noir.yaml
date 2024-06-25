@@ -33,6 +33,8 @@ pipeline:
     arrays:
       - main
     immediate: true
+    blocking: false
   - __target__: picamkit.ops.debug.dump
     key: metadata
-    interval: {{ (max_frames | default(100) | int ) - 1 }}
+    interval: {{ dump_interval | default(10) }}
+    drop: true
