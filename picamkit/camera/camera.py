@@ -1,8 +1,12 @@
 import os
 os.environ['LIBCAMERA_LOG_LEVELS'] = "*:ERROR"
 
+import time
+
 from picamera2 import Picamera2, Preview
 from libcamera import Transform, ColorSpace, controls
+
+from .framebuffer import FrameBuffer
 
 
 def Camera(
@@ -54,7 +58,7 @@ def Camera(
     sensor_format = sensor_mode['unpacked']
     sensor_size = sensor_mode['size']
     sensor_bit_depth = sensor_mode['bit_depth']
-
+    
     # keep track of the configured mode on the object
     cam.configured_mode = sensor_mode
 
@@ -83,6 +87,12 @@ def Camera(
 
     # if preview is requested, configure the lores stream for display
     if preview:
+        # blank the screen
+        fb = FrameBuffer()
+        arr = fb.array()
+        arr[...] = 0
+        
+        # setup the viewing area
         preview_size = (min(1920, sensor_size[0]), min(1080, sensor_size[1]))
         kwargs['lores'] = {
             'size': preview_size
@@ -107,7 +117,9 @@ def Camera(
 
     # start the camera
     if preview:
-        cam.start_preview(Preview.DRM, width=preview_size[0], height=preview_size[1])
+        x = (1920 - preview_size[0]) // 2
+        y = (1080 - preview_size[1]) // 2
+        cam.start_preview(Preview.DRM, x=x, y=y, width=preview_size[0], height=preview_size[1])
     cam.start()
     
     # apply any additional controls to the camera
