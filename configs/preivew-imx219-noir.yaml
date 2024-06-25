@@ -6,7 +6,6 @@ camera:
   vflip: false
   hflip: false
   preview: true
-  min_frameduration: {{ 1000000.0 / (frames_per_second | default(5) | float) }}
   tuning_file: {{ tuning_file | default('imx219_noir.json') }}
 
 
@@ -21,7 +20,7 @@ configure_cam:
     camera:
       __instance__: camera
     metering_mode:
-      __enum__: picamkit.camera.MeteringModeEnum.CENTRE_WEIGHTED
+      __enum__: picamkit.camera.MeteringModeEnum.MATRIX
     wait: true
 
 
