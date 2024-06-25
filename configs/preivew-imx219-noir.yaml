@@ -7,7 +7,7 @@ camera:
   hflip: false
   preview: true
   min_frameduration: {{ 1000000.0 / (frames_per_second | default(5) | float) }}
-  tuning_file: imx219_noir.json
+  tuning_file: {{ tuning_file | default('imx219_noir.json') }}
 
 
 # configure the camera
