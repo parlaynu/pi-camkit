@@ -1,8 +1,13 @@
-from typing import Generator
+from typing import Iterable, Generator
 import numpy as np
 
 
-def fake_capture(pipe: Generator[dict, None, None], *, width: int = 640, height: int = 480) -> Generator[dict, None, None]:
+def fake_capture(
+    pipe: Iterable[dict], 
+    *, 
+    width: int = 640, 
+    height: int = 480
+) -> Generator[dict, None, None]:
     """A fake capture operator to allow testing when there is no camera available."""
 
     print("Building picamkit.ops.debug.fake_capture")

@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Iterable, Generator
 import os
 import cv2
 import numpy as np
@@ -24,7 +24,7 @@ bayer_scale = {
 
 
 def save_raw(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     outdir: str, 
     *, 
     image_key: str = 'raw.image', 

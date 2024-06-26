@@ -11,12 +11,12 @@ When 'blocking' is True, call the camera capture with 'wait' as True; when
 False, call with 'wait' set to False to overlap the capture with the rest
 of the processing.
 """
-from typing import Generator
+from typing import Iterable, Generator
 from picamera2 import Picamera2
 
 
 def capture(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     camera: Picamera2, 
     *, 
     arrays: list = ['main'],

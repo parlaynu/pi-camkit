@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Iterable, Generator
 
 from picamera2 import Picamera2
 
@@ -6,7 +6,7 @@ from .image_dtypes import image_dtypes
 
 
 def capture_nonblocking(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     camera: Picamera2, 
     *, 
     arrays: list = ['main']

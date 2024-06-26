@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Iterable, Generator
 import os
 import shutil
 import cv2
@@ -11,7 +11,7 @@ image_formats = {
 
 
 def save_movie(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     outdir: str, 
     *, 
     movie_fps: int = 2,

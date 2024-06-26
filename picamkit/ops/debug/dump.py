@@ -1,10 +1,10 @@
-from typing import Generator
+from typing import Iterable, Generator
 import time
 import numpy as np
 
 
 def dump(
-    pipe: Generator[dict, None, None],
+    pipe: Iterable[dict],
     *,
     key='all',
     interval=10,

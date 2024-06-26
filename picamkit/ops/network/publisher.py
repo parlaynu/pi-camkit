@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Iterable
 import socket
 import psutil
 import re
@@ -10,7 +10,7 @@ import numpy as np
 
 
 def publisher(
-    pipe: Generator[dict, None, None],
+    pipe: Iterable[dict],
     *, 
     port: int = 8090,
     image_key: str = 'main.image', 

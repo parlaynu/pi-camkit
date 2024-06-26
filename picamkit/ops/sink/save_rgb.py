@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Iterable, Generator
 import os
 import cv2
 
@@ -10,7 +10,7 @@ image_formats = {
 
 
 def save_rgb(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     outdir: str, 
     *, 
     file_format: str = "png",

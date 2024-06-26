@@ -1,11 +1,11 @@
-from typing import Generator
+from typing import Iterable, Generator
 import os
 import json
 import numpy as np
 
 
 def save_item(
-    pipe: Generator[dict, None, None], 
+    pipe: Iterable[dict], 
     outdir: str, 
     *, 
     prefix: str = 'img', 

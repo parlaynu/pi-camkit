@@ -4,7 +4,12 @@ import threading
 import time
 
 
-def tee(pipe: Iterable[dict], *, count: int, threaded: bool = False) -> Iterable[Generator[dict, None, None]]:
+def tee(
+    pipe: Iterable[dict], 
+    *, 
+    count: int, 
+    threaded: bool = False
+) -> Iterable[Generator[dict, None, None]]:
     """Splits the incoming pipe into multiple outputs which can then be processed in parallel.
     
     See itertools.tee for details.
